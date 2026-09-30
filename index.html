@@ -1,0 +1,485 @@
+<!DOCTYPE html>
+
+
+
+<html lang="en">
+
+<head>
+
+<meta charset="utf-8"/>
+
+<meta content="width=device-width, initial-scale=1" name="viewport"/>
+
+<meta content="AhtiGlobe — static showcase for vehicle-aware routing, real Finnish road measurements, environmental context and scenario analysis." name="description"/>
+
+<meta content="#071015" name="theme-color"/>
+
+<meta content="AhtiGlobe" property="og:title"/>
+
+<meta content="Route-aware Northern European asset-twin showcase using OpenStreetMap, Valhalla, Digitraffic and NOAA GFS." property="og:description"/>
+
+<title>AhtiGlobe · Digital Twin Showcase</title>
+
+<link href="assets/ahtiglobe-logo.97d346efa522b59f.png" rel="icon" type="image/png"/>
+
+<link href="assets/style.394820863a4f454f.css" rel="stylesheet"/>
+
+</head>
+
+<body>
+
+<div aria-live="polite" class="startup-banner" id="startupStatus" role="status">Loading AhtiGlobe v2.3.0…</div>
+
+<div class="app-shell">
+
+<header class="topbar">
+
+<a aria-label="AhtiGlobe home" class="brand" href=".">
+
+<img alt="AhtiGlobe" class="brand-logo" height="306" src="assets/ahtiglobe-logo.97d346efa522b59f.png" width="508"/>
+
+</a><span class="product-label">Journey workspace</span>
+
+<div class="top-actions"><button aria-controls="assetBrowser" aria-haspopup="dialog" class="primary-btn asset-launch" id="openAssetBrowser">Assets</button>
+
+<a class="ghost-btn" href="?mode=demo" id="modeLink">DEMO MODE</a>
+
+<span class="system-state" id="systemState"><i class="status-dot"></i> Initialising live sources</span>
+
+<button class="ghost-btn" id="refreshBtn" title="Refresh data sources">Refresh</button>
+
+<span class="backend-state" id="backendState" title="Backend connection mode">Checking backend…</span>
+
+</div>
+
+</header>
+
+<div class="map-mode-note" id="mapModeNote"></div><div class="context-bar"><span id="compactContext">Choose an asset and plan a journey.</span><a href="#dataDrawer" id="openData">Sources <span id="compactSourceMode">Demo</span></a></div><div class="mode-notice" hidden="" id="modeNotice">Demo mode: routes and stops are synthetic; the OpenStreetMap base still requires network access. <a href="?">Use live road routing</a></div><div class="route-error" hidden="" id="routeError" role="alert"></div>
+
+<main class="workspace">
+
+<section aria-label="Northern Europe operations map" class="map-panel">
+
+<div id="map"></div>
+
+<div class="map-topbar map-overlay">
+
+<div class="map-title"><span class="map-live-dot"></span><div><strong id="mapMode">Map</strong></div><span class="range-map-status" id="mapRangeStatus">MAX ROAD REACH · —</span></div>
+
+<div class="map-tools"><button id="fitAssets">Fleet</button><button id="fitRoute">Route</button><button id="fitRange">Reach</button><button id="resetView">Reset</button></div>
+
+</div>
+
+<details class="drawer map-legend map-overlay" id="layerDrawer"><summary><span>Layers</span><small></small></summary><div class="drawer-body layer-groups">
+<section><strong>Weather forecast</strong><label><input checked id="forecastLayer" type="checkbox"/> <span class="legend-swatch weather"></span> On map</label><label><input id="forecastValues" type="checkbox"/> Cell values</label></section>
+<section><strong>Road data</strong><label><input checked id="layerWeather" type="checkbox"/> <span class="legend-swatch weather"></span> Weather sensors <span class="legend-status" id="layerWeatherStatus">0</span></label><label><input checked id="layerTraffic" type="checkbox"/> <span class="legend-swatch traffic"></span> Traffic sensors (TMS) <span class="legend-status" id="layerTrafficStatus">0</span></label><label><input checked id="layerEvents" type="checkbox"/> <span class="legend-swatch event"></span> Events &amp; restrictions <span class="legend-status" id="layerEventsStatus">0</span></label><small class="layer-help">Sensors are measured values. Events are reported works, incidents and restrictions.</small></section>
+<section><strong>Energy infrastructure</strong><label><input checked id="layerCharging" type="checkbox"/> <span class="legend-swatch charging"></span> Charging locations <span class="legend-status" id="layerChargingStatus">0</span></label><label><input checked id="layerFuel" type="checkbox"/> <span class="legend-swatch fuel"></span> Fuel locations <span class="legend-status" id="layerFuelStatus">0</span></label><small class="layer-help">Locations and status come from source feeds. Service duration is a modelled average.</small></section>
+<section><strong>Earth observation</strong><label><input id="layerSatellite" type="checkbox"/> <span class="legend-swatch satellite"></span> NASA GIBS <span class="legend-status" id="satelliteMode">layer off</span></label><select aria-label="NASA GIBS product" id="satelliteProduct"><option value="trueColor">True colour</option><option value="snow">Snow cover</option><option value="surfaceTemp">Land surface temperature</option></select><small class="layer-help" id="eoApplication">Choose an Earth-observation product, then enable Satellite.</small></section>
+<section><strong>Assets</strong><label><input checked id="layerAssets" type="checkbox"/> All assets</label><div class="layer-subgrid"><label><input checked class="asset-type-layer" value="vehicle" type="checkbox"/> Vehicles</label><label><input checked class="asset-type-layer" value="drone" type="checkbox"/> Drones</label><label><input checked class="asset-type-layer" value="aircraft" type="checkbox"/> Aircraft</label><label><input checked class="asset-type-layer" value="helicopter" type="checkbox"/> Helicopters</label><label><input checked class="asset-type-layer" value="ship" type="checkbox"/> Ships</label></div><small>Energy</small><div class="layer-subgrid"><label><input checked class="asset-energy-layer" value="electric" type="checkbox"/> Electric</label><label><input checked class="asset-energy-layer" value="fuel" type="checkbox"/> Fuel</label><label><input checked class="asset-energy-layer" value="hybrid" type="checkbox"/> Hybrid</label></div></section>
+</div></details>
+
+<div class="route-chooser map-overlay hidden" id="routeChooser">
+
+<div class="route-chooser-head">
+
+<div class="route-chooser-title"><strong id="routeChooserTitle">Run a scenario to calculate routes</strong><small id="routeChooserContext">Selected vehicle node → destination</small></div>
+
+<div class="route-chooser-actions"><span class="status-chip" id="routeCountChip">—</span><button aria-controls="mapRouteCards" aria-expanded="true" class="route-toggle" id="routeChooserToggle" type="button">Hide</button></div>
+
+</div>
+
+<div class="map-route-cards" id="mapRouteCards"></div>
+
+</div>
+
+<div class="map-toast hidden" id="mapToast"></div>
+
+<div class="route-time-context map-overlay hidden" id="routeTimeContext" aria-live="polite"><strong id="routeTimeTitle">Journey context</strong><span id="routeTimeWeather">Weather —</span><span id="routeTimeRoad">Road —</span><span id="routeTimeEnergy">Energy infrastructure —</span></div>
+
+</section>
+
+<aside aria-label="Asset and journey" class="control-rail"><details class="panel twin-panel" id="twinDrawer" open="">
+
+<summary class="panel-head">
+
+<div><div class="eyebrow">Selected asset</div><h2 id="selectedName">Select an asset</h2></div>
+
+<span class="status-chip" id="selectedStatus">IDLE</span>
+
+</summary><div class="field quick-asset"><label for="vehicleSelect">Asset</label><select class="dark-select" id="vehicleSelect"></select></div>
+
+<div class="inspector-empty" id="inspector">Select a fleet asset to inspect its physical envelope, energy state and mobility constraints.</div>
+
+<section aria-label="Twin runtime" class="twin-runtime hidden" id="twinRuntime">
+
+<div class="runtime-head"><div><div class="eyebrow">Twin state</div><strong id="runtimeLabel">IDLE</strong></div><span class="source-badge derived">Modelled</span></div>
+
+<div class="runtime-grid">
+
+<div><span>Speed</span><strong id="rtSpeed">—</strong></div>
+
+<div><span>Energy</span><strong id="rtEnergy">—</strong></div>
+
+<div><span>Reach</span><strong id="rtRange">—</strong></div>
+
+<div><span>Arrival</span><strong id="rtMargin" title="Modelled arrival energy; protected reserve is 15%.">—</strong></div>
+
+</div>
+
+<details class="drawer" id="twinContext"><summary><span>Current conditions</span><small></small></summary><div class="drawer-body"><div class="runtime-callout"><span class="eyebrow">ACTIVE SEGMENT</span><strong id="rtContext">—</strong><small id="rtContextSource">—</small></div><div class="runtime-factors" id="rtFactors">—</div></div></details></section>
+
+<details class="drawer hidden" id="stationDrawer"><summary><span>Map selection</span><small></small></summary><div class="drawer-body"><div class="station-inspector hidden" id="stationInspector"></div></div></details></details><details class="panel scenario-panel" id="journeyDrawer" open="">
+
+<summary class="panel-head">
+
+<div><h2 id="journeyTitle">Plan journey</h2></div>
+
+<span class="status-chip accent" id="scenarioState">READY</span>
+
+</summary>
+
+<details class="drawer mission-drawer" id="missionDrawer" open>
+<summary><span>Coordinated mission</span><small id="missionCount">0 / 5</small></summary>
+<div class="drawer-body mission-body">
+<div id="missionEmpty" class="mission-empty"><p>Add up to five assets. Selection creates no route until every destination is assigned and <strong>Plan all</strong> is pressed.</p><button id="missionAddActive" type="button">Plan selected asset</button></div>
+<div id="missionControls" hidden>
+<div id="missionOverview" class="mission-overview" aria-label="Mission readiness"></div>
+<div id="missionAssets" class="mission-assets" aria-label="Selected mission assets"></div>
+<div class="mission-active-head"><button id="missionPrev" type="button" aria-label="Previous asset">←</button><strong id="missionActiveName">No asset selected</strong><button id="missionNext" type="button" aria-label="Next asset">→</button></div>
+<div id="missionRouteOptions" class="mission-route-options" hidden>
+<div class="mission-route-options-head"><div><strong>Route A/B/C</strong><small>Recommendation uses route, energy and matched corridor evidence. Select any feasible route.</small></div><label>Priority<select id="missionPriority"><option value="balanced">Balanced</option><option value="time">Fastest</option><option value="energy">Least energy</option><option value="margin">Most reserve</option><option value="events">Fewest events</option></select></label></div>
+<div id="missionRouteCards" class="mission-route-cards" aria-label="Route alternatives"></div>
+</div>
+<details id="missionEvidence" class="mission-evidence" hidden><summary><span>Plan evidence</span><small id="missionEvidenceSummary">Not planned</small></summary><div id="missionEvidenceBody" class="mission-evidence-body"></div></details>
+<div class="mission-facility"><label>Destination station<select id="missionFacility"><option value="">Custom coordinates / map point</option></select></label><div><button id="missionFacilityActive" type="button">Set active</button><button id="missionFacilityAll" type="button">Set matching assets</button></div></div>
+<div class="mission-coordinate-grid"><label>Longitude<input id="missionLon" type="number" min="-180" max="180" step="any" inputmode="decimal"/></label><label>Latitude<input id="missionLat" type="number" min="-90" max="90" step="any" inputmode="decimal"/></label></div>
+<div class="mission-time"><label>Mission start (UTC)<input id="missionDepartureTime" type="datetime-local" step="60"/></label><button id="missionDepartureNow" type="button">Now</button></div>
+<div class="mission-actions"><button id="missionPick" type="button" aria-pressed="false">Pick destinations</button><button id="missionAssign" type="button">Use coordinates</button><button id="missionPlanAll" class="primary-btn" type="button" disabled>Plan all assets</button></div>
+<p id="missionStatus" class="mission-status" role="status">Choose up to five assets from the asset browser.</p>
+<div id="missionIssues" class="mission-issues" hidden aria-label="Mission blockers"></div>
+<div class="mission-playback"><button id="missionPlay" type="button" disabled>Play all</button><button id="missionReset" type="button">Clear plans</button><input id="missionTimeline" type="range" min="0" max="1" value="0" step="1" disabled aria-label="Coordinated mission time"/><strong id="missionClock">0.0 / 0.0 min</strong></div>
+</div>
+</div>
+</details>
+
+<div class="scenario-toolbar">
+
+<div class="field"><label for="originSelect">From</label><select id="originSelect"><option value="selected-asset">Selected vehicle · current node</option><option value="60.1699,24.9384">Helsinki</option><option value="60.4518,22.2666">Turku</option><option value="61.4978,23.7610">Tampere</option><option value="62.2426,25.7473">Jyväskylä</option><option value="65.0121,25.4651">Oulu</option></select><small class="field-note secondary-note" id="originContext">Selected vehicle coordinates will be used by default.</small></div>
+
+<div class="field"><label for="destinationSelect">To</label><select id="destinationSelect"><option value="61.4978,23.7610">Tampere</option><option value="65.0121,25.4651">Oulu</option><option value="60.1699,24.9384">Helsinki</option><option value="60.4518,22.2666">Turku</option><option value="62.2426,25.7473">Jyväskylä</option></select></div>
+
+<div class="field"><label for="objectiveSelect">Priority</label><select class="dark-select" id="objectiveSelect"><option value="balanced">Balanced</option><option value="time">Fastest</option><option value="energy">Least energy</option><option value="margin">Most reserve</option><option value="events">Fewest events</option></select></div>
+
+<div class="field departure-control"><label for="departureTime">Start time (UTC)</label><div><input id="departureTime" type="datetime-local" step="60"/><button id="departureNow" type="button">Now</button></div><small class="field-note secondary-note" id="departureNote">Current UTC by default · route evidence follows estimated arrival time.</small></div>
+
+<button class="primary-btn" id="runScenario"><span id="runScenarioLabel">Plan route</span><small class="field-note secondary-note" id="runScenarioNote">LIVE ROUTE · SCENARIO</small></button>
+
+</div><details class="drawer" id="energyDrawer"><summary><span>Starting energy</span><small id="energyBasis">Demo values</small></summary><div class="drawer-body"><form id="energyForm" novalidate="">
+
+<div class="energy-inputs"><div class="field" id="batteryEnergyRow"><label for="batteryEnergyInput">Battery SOC (%)</label><input id="batteryEnergyInput" inputmode="decimal" max="100" min="0" required="" step="any" type="number"/></div>
+
+<div class="field" id="fuelEnergyRow"><label for="fuelEnergyInput">Fuel (%)</label><input id="fuelEnergyInput" inputmode="decimal" max="100" min="0" required="" step="any" type="number"/></div></div>
+
+<p aria-live="polite" class="energy-feedback" id="energyFeedback" role="status">Scenario values stay in this session.</p>
+
+<div class="energy-actions"><button id="applyEnergy" type="submit">Apply</button><button id="resetEnergy" type="button">Reset</button></div>
+
+</form></div></details><details class="drawer" id="conditionsDrawer"><summary><span>Conditions</span><small>Payload · weather</small></summary><div class="drawer-body"><div class="scenario-model-grid">
+
+<div class="scenario-control mass-control">
+
+<div class="control-title"><label for="payloadSlider">PAYLOAD</label><output id="massOut">—</output></div>
+
+<input id="payloadSlider" max="1000" min="0" step="10" type="range" value="0"/>
+
+<div class="mass-readout"><strong id="massPrimary">— / — kg gross</strong><span id="payloadReadout">Payload — / — kg</span></div>
+
+<div class="mass-readout mass-envelope"><span id="curbReadout">Curb — kg</span><span id="payloadCapacityReadout">Max payload — kg</span></div>
+
+<div class="control-foot"><span id="massLimit">Maximum gross mass —</span><strong id="massHeadroom">Headroom —</strong></div>
+
+</div>
+
+<div class="scenario-control env-widget-control">
+
+<div class="control-title"><label for="temperatureEnabled">TEMPERATURE</label><div class="control-toggle"><span>Use</span><input checked="" id="temperatureEnabled" type="checkbox"/><label aria-label="Use temperature in model" for="temperatureEnabled"></label></div></div>
+
+<div class="env-widget-value"><strong id="temperatureLiveValue">— °C</strong><span id="temperatureLiveSource">Forecast</span></div>
+
+<select class="scenario-select scenario-inline-select" id="temperatureMode"><option value="live">Forecast</option><option value="override">Override temperature</option></select>
+
+<input id="temperatureSlider" max="40" min="-30" step="1" type="range" value="5"/>
+
+<div class="control-foot"><span id="temperatureLive">live —</span><strong id="tempOut">LIVE</strong></div>
+
+</div>
+
+<div class="scenario-control env-widget-control">
+
+<div class="control-title"><label for="windEnabled">HEAD / TAIL WIND</label><div class="control-toggle"><span>Use</span><input checked="" id="windEnabled" type="checkbox"/><label aria-label="Use live wind in model" for="windEnabled"></label></div></div>
+
+<div class="env-widget-value"><strong id="windLiveValue">— km/h</strong><span id="windLiveSource">Forecast · route heading</span></div>
+
+<div class="wind-bar"><span id="windLiveDirection">—</span><span id="windLiveCompass">—</span></div>
+
+<div class="control-foot"><span>Projected onto vehicle travel direction</span><strong id="windOut">LIVE</strong></div>
+
+</div>
+
+<div class="scenario-control">
+
+<div class="control-title"><label for="surfaceSelect">ROAD SURFACE</label><output id="surfaceOut">LIVE</output></div>
+
+<select class="scenario-select" id="surfaceSelect"><option value="live">Auto</option><option value="dry">Dry pavement</option><option value="wet">Wet pavement</option><option value="snow">Snow / slush</option><option value="ice">Packed snow / ice</option></select>
+
+<div class="control-foot"><span>Surface effect in model</span><strong>road weather remains visible</strong></div>
+
+</div>
+
+</div><div class="scenario-hint" id="massHint">Payload is entered as carried mass. Operating mass is derived as curb mass + payload and constrained by maximum gross mass.</div></div></details>
+
+
+
+</details></aside></main><div class="replay-bar">
+
+<div class="replay-progress"><div class="eyebrow">Journey time</div><strong id="timelineReadout">0 km / idle</strong><small id="replayEta">Plan a route to start the journey clock</small></div>
+
+<input aria-label="Route replay progress" id="timeline" max="100" min="0" type="range" value="0"/>
+
+<label class="replay-weather-field" for="forecastField"><span>Map weather</span><select id="forecastField"><option value="temperature">Temperature</option><option value="precipitation">Precipitation</option><option value="wind">Wind</option></select></label>
+
+<div class="replay-weather-time"><span>Valid time</span><strong id="replayWeatherTime">Open Weather to load</strong></div>
+
+<button class="ghost-btn" id="playBtn">Play</button>
+
+<button class="ghost-btn" id="resetBtn">Reset</button>
+
+</div><section aria-label="Journey details" class="evidence-stack"><details class="drawer" id="forecastDrawer"><summary><span>Weather outlook</span><small>Now · next 24 hours</small></summary><div class="drawer-body"><div class="forecast-toolbar"><button id="forecastNow" type="button">Now</button><button id="forecastRefresh" type="button">Refresh</button></div><p id="forecastStatus" role="status">Open to fetch weather</p><label for="forecastHour" id="forecastTime">Now · current model estimate</label><input id="forecastHour" type="range" min="0" max="24" step="1" value="0" aria-label="Forecast hours ahead"/><div class="forecast-scale"><span>Now</span><span>+6 h</span><span>+12 h</span><span>+18 h</span><span>+24 h</span></div><div id="forecastSamples" class="forecast-samples"></div><p id="forecastDetail" aria-live="polite"></p><small>Helsinki time · point samples, not radar coverage. Current conditions and forecasts are weather-model estimates. Road-station observations remain separate. <a href="https://open-meteo.com/en/docs" target="_blank" rel="noopener">Open-Meteo</a></small></div></details><details class="drawer" id="stopsDrawer"><summary><span>Journey stops</span><small id="stopSummary">Not planned</small></summary><div class="drawer-body"><p id="noStopsMessage">Plan a route to see charging and fuel stops.</p><div aria-live="polite" class="route-stop-recommendation hidden" id="routeStopRecommendation"></div></div></details><details class="drawer" id="comparisonDrawer"><summary><span>Route details</span><small>Comparison · model</small></summary><div class="drawer-body"><div class="decision-summary">
+
+<div><span>SELECTED ROUTE</span><strong id="selectedRouteName">Not calculated</strong><small id="selectedRouteBasis">Real Valhalla route required for live mode</small></div>
+
+<div><span>DISTANCE</span><strong id="routeDistance">—</strong><small>route geometry</small></div>
+
+<div><span>ETA</span><strong id="routeEta">—</strong><small>Valhalla + traffic model</small></div>
+
+<div><span>ARRIVAL ENERGY</span><strong id="routeArrival">—</strong><small>twin estimate</small></div>
+
+<div><span>ROAD MSGS</span><strong id="routeConstraints">—</strong><small>near route corridor</small></div>
+
+</div><div class="route-detail-head">
+
+<div><div class="eyebrow">ROUTE EVIDENCE</div><strong id="routeEvidenceTitle">Select or calculate a route to inspect its network path, live coverage and modeled operating cost.</strong></div>
+
+<div class="route-evidence-chips"><span class="evidence-chip" id="weatherCoverageChip">WEATHER —</span><span class="evidence-chip" id="trafficCoverageChip">TRAFFIC —</span><span class="evidence-chip" id="eventCoverageChip">ROAD MSGS —</span><span class="evidence-chip" id="fuelCoverageChip">FUEL —</span><span class="evidence-chip" id="chargeCoverageChip">CHARGE —</span></div>
+
+</div><div class="route-comparison" id="routeComparison"></div><div class="scenario-delta" id="scenarioDelta">
+
+<div><span>SCENARIO IMPACT</span><strong>Not run</strong><small>Run once to compare against current asset state.</small></div>
+
+<div><span>CONSUMPTION DELTA</span><strong>—</strong><small>Same route, scenario conditions</small></div>
+
+<div><span>ETA DELTA</span><strong>—</strong><small>Scenario travel time</small></div>
+
+<div><span>ARRIVAL ENERGY</span><strong>—</strong><small>Selected route</small></div>
+
+</div><div class="scenario-outcome hidden" id="scenarioOutcome"></div></div></details><details class="drawer" id="chartDrawer"><summary><span>Journey profiles</span><small>Energy · speed</small></summary><div class="drawer-body"><div class="charts-grid">
+
+<section class="chart-card">
+
+<div class="chart-head"><div><div class="eyebrow">ENERGY STATE</div><strong id="energyChartTitle">Energy remaining vs route distance</strong><small class="chart-readout" id="energyChartReadout">Run a scenario to populate the route profile.</small></div><span class="chart-legend" id="energyChartLegend"><i class="line energy"></i>State % <i class="line range"></i>Range km</span></div>
+
+<svg aria-label="Energy state and remaining range over route distance" id="energyChart" role="img" viewbox="0 0 860 280"></svg><p class="chart-stop-note" id="energyChartStops"></p>
+
+</section>
+
+<section class="chart-card">
+
+<div class="chart-head"><div><div class="eyebrow">OPERATING STATE</div><strong>Speed and ambient temperature vs distance</strong><small class="chart-readout" id="stateChartReadout">Run a scenario to populate the route profile.</small></div><span class="chart-legend"><i class="line speed"></i>Speed km/h <i class="line vehicle-temp"></i>Ambient °C</span></div>
+
+<svg aria-label="Speed and ambient temperature over route distance" id="stateChart" role="img" viewbox="0 0 860 280"></svg>
+
+</section>
+
+</div></div></details><details class="drawer" id="offlineForecastDrawer"><summary><span>Traffic forecast</span><small>Offline LSTM · evaluated</small></summary><div class="drawer-body"><section class="chart-card offline-model-card">
+
+<div class="chart-head"><div><div class="eyebrow">EXPERIMENTAL OFFLINE MODEL</div><strong id="offlineForecastTitle">Loading station forecast…</strong><small class="chart-readout" id="offlineForecastMetrics">Chronological holdout metrics load with the model artifact.</small></div><span class="chart-legend"><i class="line model-observed"></i>Observed <i class="line model-predicted"></i>Forecast</span></div>
+
+<svg aria-label="Offline LSTM traffic speed history and forecast" id="offlineForecastChart" role="img" viewbox="0 0 860 280"></svg><p class="model-status" id="offlineForecastStatus">Loading offline model evidence…</p><p class="data-note">Station-specific research model trained from historical Digitraffic vehicle passes. This forecast is not a live observation or a safety-critical route authority.</p>
+
+</section></div></details><details class="drawer" id="segmentDrawer"><summary><span>Segment evidence</span><small>Conditions along the route</small></summary><div class="drawer-body"><div class="segment-wrap">
+
+<div class="segment-table" id="segmentTable"></div>
+
+</div></div></details><details class="drawer" id="dataDrawer"><summary><span>Data sources</span><small>Live · demo · modelled</small></summary><div class="drawer-body"><aside class="data-content"><div class="mission-meta">
+
+<span class="status-chip" id="routeAuthority">ROUTE · NOT RUN</span>
+
+<span class="status-chip" id="environmentAuthority">ENVIRONMENT · DEMO SNAPSHOT</span>
+
+<span class="status-chip" id="eventAuthority">ROAD MESSAGES · DEMO SNAPSHOT</span>
+
+<span class="status-chip" id="replayAuthority">REPLAY · POSITION-SAMPLED</span>
+
+</div><section aria-label="Operational data fabric" class="live-strip">
+
+<div class="live-card fabric-card"><div class="live-card-head"><span>ROAD NETWORK</span><span class="source-badge route" id="routeFeedStatus">READY</span></div><strong id="kpiRouteFeed">OSM + Valhalla</strong><small id="kpiRouteFeedNote">Map context is global; routing authority is external and reported after calculation.</small></div>
+
+<div class="live-card fabric-card"><div class="live-card-head"><span>ROADSIDE SENSORS</span><span class="source-badge observed status-idle" id="observationsSourceStatus">demo fallback</span></div><strong id="kpiObservations">—</strong><small id="kpiObservationsNote">TMS measures speed and flow; weather stations measure temperature, wind and surface state.</small></div>
+
+<div class="live-card fabric-card"><div class="live-card-head"><span>EVENTS &amp; RESTRICTIONS</span><span class="source-badge observed status-idle" id="conditionsSourceStatus">demo fallback</span></div><strong id="kpiConditions">—</strong><small id="kpiConditionsNote">Reported roadworks, announcements and weight restrictions; these records are not sensor measurements.</small></div>
+
+<div class="live-card fabric-card"><div class="live-card-head"><span>ATMOSPHERIC CONTEXT</span><span class="source-badge model status-idle" id="meteoSourceStatus">demo fallback</span></div><strong id="kpiTemp">—</strong><small id="kpiTempNote">GFS route-time samples when available; labelled fallback otherwise.</small></div>
+
+<div class="live-card fabric-card"><div class="live-card-head"><span>ENERGY INFRASTRUCTURE</span><span class="source-badge observed status-idle" id="infrastructureSourceStatus">demo fallback</span></div><strong id="kpiInfrastructure">—</strong><small id="kpiInfrastructureNote">AFIR/OSM supply locations and compatibility. Charging and fuelling duration uses a transparent modelled average.</small></div>
+
+<div class="live-card fabric-card"><div class="live-card-head"><span>TWIN STATE</span><span class="source-badge synthetic">DEMO</span></div><strong id="kpiAssets">—</strong><small id="kpiAssetsNote">Deterministic fleet identity and telemetry; never presented as real vehicle telemetry.</small></div>
+
+</section>
+
+<div class="fabric-context">
+
+<div class="fabric-context-head"><div><div class="eyebrow">CURRENT ROUTE DATA RECIPE</div><strong id="fabricRouteTitle">No route selected</strong></div><span class="status-chip" id="fabricMode">NO ROUTE</span></div>
+
+<div class="fabric-layers">
+
+<div><span class="fabric-dot observed"></span><strong>Observed</strong><small id="fabricObserved">Digitraffic roadside measurements · route corridor match</small></div>
+
+<div><span class="fabric-dot model"></span><strong>Forecast / context</strong><small id="fabricForecast">GFS grid · estimated route arrival times</small></div>
+
+<div><span class="fabric-dot derived"></span><strong>Derived</strong><small id="fabricDerived">Vehicle model · operating mass · energy/range/ETA outputs</small></div>
+
+</div>
+
+</div>
+
+<div class="source-list">
+
+<div class="source-card"><span class="source-badge route" id="satelliteSourceStatus">remote</span><div><strong>NASA GIBS · satellite imagery</strong><small>Real NASA Earth-observation imagery rendered as a map layer for geographic context. It is not used as vehicle telemetry.</small></div><em>imagery</em></div>
+<div class="source-card"><span class="source-badge route">TWIN</span><div><strong>Open Sensor Twin · canonical stream</strong><small>Signed, provenance-aware Digitraffic and Open-Meteo channels exposed by the Unity telemetry hub. These channels provide local context; synthetic fleet state remains labelled.</small></div><em id="sensorTwinSourceStatus">connecting</em></div>
+
+<a class="source-card" href="https://www.openstreetmap.org/" rel="noreferrer" target="_blank"><span class="source-badge route">LIVE</span><div><strong>OpenStreetMap base map</strong><small>Road network, map features and open geographic context used by the showcase.</small></div><em>open</em></a>
+
+<a class="source-card" href="https://www.digitraffic.fi/en/road-traffic/" rel="noreferrer" target="_blank"><span class="source-badge observed status-idle" id="weatherSourceStatus">demo current</span><div><strong>Digitraffic · Road weather</strong><small id="weatherSourceDetail">Finnish roadside temperature, wind, rain and humidity observations.</small></div><em>open</em></a>
+
+<a class="source-card" href="https://www.digitraffic.fi/en/road-traffic/" rel="noreferrer" target="_blank"><span class="source-badge observed status-idle" id="eventsSourceStatus">demo fallback</span><div><strong>Digitraffic · TMS + reported events</strong><small id="trafficSourceDetail">TMS supplies measured speed/flow. A separate feed supplies roadworks, announcements and restrictions.</small></div><em>open</em></a>
+
+<a class="source-card" href="https://www.digitraffic.fi/en/road-traffic/" rel="noreferrer" target="_blank"><span class="source-badge observed status-idle" id="chargingSourceStatus">demo fallback</span><div><strong>Digitraffic · AFIR charging</strong><small>Location, connector and status data. Session duration is calculated from vehicle energy need and the average service model.</small></div><em>open</em></a>
+
+<a class="source-card" href="https://registry.opendata.aws/noaa-gfs-bdp-pds/" rel="noreferrer" target="_blank"><span class="source-badge model status-idle" id="meteoCardSourceStatus">demo fallback</span><div><strong>NOAA / NCEP GFS</strong><small>Native weather grid and estimated-arrival route samples. Open-Meteo is a labelled fallback.</small></div><em>open</em></a>
+
+<a class="source-card" href="https://valhalla1.openstreetmap.de/" rel="noreferrer" target="_blank"><span class="source-badge route">LIVE</span><div><strong>Valhalla + OpenStreetMap</strong><small>Route geometry, alternatives, maneuvers and elevation service.</small></div><em id="valhallaSourceStatus">ready</em></a>
+
+<a class="source-card" href="https://wiki.openstreetmap.org/wiki/Overpass_API" rel="noreferrer" target="_blank"><span class="source-badge route">LIVE</span><div><strong>OpenStreetMap / Overpass</strong><small>Fuel-station POIs queried only when a route needs route-corridor refuelling context.</small></div><em id="fuelSourceStatus">idle</em></a>
+
+<div class="source-card"><span class="source-badge synthetic">DEMO</span><div><strong>Vehicle twin state</strong><small>Representative asset envelopes and deterministic synthetic telemetry — never presented as live vehicle data.</small></div><em>local</em></div>
+
+<div class="source-card"><span class="source-badge derived">MODEL</span><div><strong>Twin derivation</strong><small>Route, vehicle envelope, observed road data and weather inputs are combined into a transparent showcase model.</small></div><em>twin</em></div>
+
+</div>
+
+<div class="data-note"><strong>Data boundary</strong><p>Real infrastructure observations are never presented as vehicle telemetry. Synthetic fleet state is used only to instantiate the digital twin; route and environmental authority are external when live mode is available.</p></div>
+
+</aside></div></details></section>
+
+<footer class="footer">
+
+<span>AhtiGlobe · static showcase · v2.3.0</span>
+
+<span>© OpenStreetMap contributors · Valhalla · Digitraffic / Fintraffic · NOAA / NCEP GFS · Open-Meteo fallback</span>
+
+<span id="lastUpdated">Live sources initialise on page load</span>
+
+</footer>
+
+<div hidden="" id="registryCompatibility"><span class="count-pill" id="fleetCount">—</span><span id="selectionCount">0 selected</span><div class="asset-list" id="assetList"></div><button id="clearAssetSelection">Clear</button></div></div>
+
+<script src="./runtime-config.js"></script>
+
+<script>
+
+(() => {
+
+  window.__NAT_BOOTSTRAP_STATE__ = 'LOADING_MODULE';
+
+  const status = document.getElementById('startupStatus');
+
+  let failed = false;
+
+  function fail(error) {
+
+    if (failed) return;
+
+    failed = true;
+
+    window.__NAT_BOOTSTRAP_STATE__ = 'FAILED';
+
+    status.hidden = false;
+
+    status.setAttribute('role', 'alert');
+
+    status.textContent = 'APPLICATION FAILED TO INITIALISE. ' + (location.protocol === 'file:' ? 'Serve the dist folder over HTTP; direct file opening is unsupported. ' : 'Reload the page or try deterministic demo mode. ') + (error?.message || 'Startup timed out.');
+
+    const link = document.createElement('a'); link.href = '?mode=demo'; link.textContent = ' Open demo mode'; status.append(link);
+
+    console.error('[NAT bootstrap]', error);
+
+  }
+
+  const timer = setTimeout(() => fail(new Error('Startup exceeded 50 seconds.')), 50000);
+
+  import('./assets/app.8e019620701d2dae.js').then(module => {
+
+    if (failed) throw new Error('Startup deadline exceeded; reload to retry.');
+
+    return module.bootstrap();
+
+  }).then(() => {
+
+    if (!failed) status.hidden = true;
+
+  }).catch(fail).finally(() => clearTimeout(timer));
+
+})();
+
+</script>
+
+<div aria-labelledby="assetBrowserTitle" aria-modal="true" class="modal hidden" id="assetBrowser" role="dialog" tabindex="-1">
+
+<div class="modal-backdrop" data-close-asset-browser=""></div>
+
+<section class="modal-card asset-browser-card">
+
+<div class="modal-head"><div><div class="eyebrow">Asset twins</div><h2 id="assetBrowserTitle">Choose assets</h2><p>Inspect one asset at a time and add up to five to the coordinated mission.</p></div><button aria-label="Close" class="modal-close" data-close-asset-browser="">×</button></div><div class="fleet-tools">
+
+<input autocomplete="off" class="search" id="search" placeholder="Search fleet or profile"/>
+
+<div aria-label="Asset domain filters" class="filters" role="tablist">
+
+<button class="filter active" data-filter="all">ALL</button>
+
+<button class="filter" data-filter="civilian">CIVILIAN</button>
+
+<button class="filter" data-filter="military">MILITARY</button>
+
+</div>
+
+<div class="registry-filter-row">
+
+<select aria-label="Vehicle type" class="registry-select" id="typeFilter"><option value="all">All vehicle types</option><option value="passenger_car">Cars</option><option value="van">Vans</option><option value="truck">Trucks</option><option value="military">Military assets</option><option value="drone">Drones</option><option value="helicopter">Helicopters</option><option value="aircraft">Aircraft</option><option value="ship">Ships</option></select>
+
+<select aria-label="Energy source" class="registry-select" id="energyFilter"><option value="all">All energy sources</option><option value="petrol">Petrol</option><option value="diesel">Diesel</option><option value="electricity">Electricity</option><option value="hybrid">Hybrid</option><option value="phev">Plug-in hybrid</option><option value="alternative">Alternative fuel</option></select>
+
+</div>
+
+<div class="browser-toolbar-note"><span id="browserCount"></span><span>Demo telemetry · modelled capabilities</span></div></div>
+
+<div class="asset-browser-grid" id="assetBrowserGrid"></div>
+
+</section>
+
+</div>
+
+</body>
+
+</html>
+

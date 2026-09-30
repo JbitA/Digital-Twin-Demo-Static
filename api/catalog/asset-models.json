@@ -1,0 +1,12 @@
+{
+  "schema_version": "1.0",
+  "authority": "AhtiGlobe procedural presentation catalogue",
+  "models": [
+    {"key":"vehicle","domains":["vehicle","land"],"renderer":"procedural_low_poly","color":"#6ed0a1"},
+    {"key":"drone","domains":["drone"],"renderer":"procedural_low_poly","color":"#7ab8ff"},
+    {"key":"aircraft","domains":["aircraft"],"renderer":"procedural_low_poly","color":"#b7a4ff"},
+    {"key":"helicopter","domains":["helicopter"],"renderer":"procedural_low_poly","color":"#efb35a"},
+    {"key":"ship","domains":["ship","marine"],"renderer":"procedural_low_poly","color":"#50c7df"}
+  ],
+  "limitations": "Semantic presentation meshes only. They are not OEM CAD, collision models, aerodynamic models, or navigation geometry."
+}

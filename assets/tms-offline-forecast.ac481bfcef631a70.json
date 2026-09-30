@@ -1,0 +1,204 @@
+{
+  "schemaVersion": "1.0",
+  "mode": "OFFLINE_MODEL",
+  "provider": "Digitraffic / Fintraffic",
+  "station": {
+    "tmsNumber": 138,
+    "name": "st120_Odilampi"
+  },
+  "trainedAtUtc": "2026-09-25T13:31:13.374081+00:00",
+  "dataset": {
+    "start": "2026-09-04T00:00:00",
+    "end": "2026-09-24T23:45:00",
+    "bins": 2016,
+    "intervalMinutes": 15,
+    "trainFraction": 0.8
+  },
+  "model": {
+    "architecture": "LSTM(6,24) + MLP",
+    "inputWindowMinutes": 360,
+    "horizonMinutes": 180,
+    "artifact": "ml/models/tms-speed-lstm.torchscript.pt"
+  },
+  "evaluation": {
+    "method": "chronological holdout",
+    "samples": 404,
+    "maeKmh": 1.487,
+    "rmseKmh": 2.423,
+    "persistenceMaeKmh": 1.913,
+    "beatsPersistence": true
+  },
+  "history": [
+    {
+      "time": "2026-09-24T18:00:00",
+      "speedKmh": 62.3,
+      "vehicleCount": 169
+    },
+    {
+      "time": "2026-09-24T18:15:00",
+      "speedKmh": 62.2,
+      "vehicleCount": 155
+    },
+    {
+      "time": "2026-09-24T18:30:00",
+      "speedKmh": 61.7,
+      "vehicleCount": 155
+    },
+    {
+      "time": "2026-09-24T18:45:00",
+      "speedKmh": 62.7,
+      "vehicleCount": 121
+    },
+    {
+      "time": "2026-09-24T19:00:00",
+      "speedKmh": 61.9,
+      "vehicleCount": 144
+    },
+    {
+      "time": "2026-09-24T19:15:00",
+      "speedKmh": 62.0,
+      "vehicleCount": 108
+    },
+    {
+      "time": "2026-09-24T19:30:00",
+      "speedKmh": 61.6,
+      "vehicleCount": 119
+    },
+    {
+      "time": "2026-09-24T19:45:00",
+      "speedKmh": 61.8,
+      "vehicleCount": 111
+    },
+    {
+      "time": "2026-09-24T20:00:00",
+      "speedKmh": 60.8,
+      "vehicleCount": 96
+    },
+    {
+      "time": "2026-09-24T20:15:00",
+      "speedKmh": 61.1,
+      "vehicleCount": 107
+    },
+    {
+      "time": "2026-09-24T20:30:00",
+      "speedKmh": 61.5,
+      "vehicleCount": 94
+    },
+    {
+      "time": "2026-09-24T20:45:00",
+      "speedKmh": 60.9,
+      "vehicleCount": 79
+    },
+    {
+      "time": "2026-09-24T21:00:00",
+      "speedKmh": 61.5,
+      "vehicleCount": 72
+    },
+    {
+      "time": "2026-09-24T21:15:00",
+      "speedKmh": 60.0,
+      "vehicleCount": 66
+    },
+    {
+      "time": "2026-09-24T21:30:00",
+      "speedKmh": 62.0,
+      "vehicleCount": 54
+    },
+    {
+      "time": "2026-09-24T21:45:00",
+      "speedKmh": 61.4,
+      "vehicleCount": 37
+    },
+    {
+      "time": "2026-09-24T22:00:00",
+      "speedKmh": 61.6,
+      "vehicleCount": 57
+    },
+    {
+      "time": "2026-09-24T22:15:00",
+      "speedKmh": 61.6,
+      "vehicleCount": 33
+    },
+    {
+      "time": "2026-09-24T22:30:00",
+      "speedKmh": 63.8,
+      "vehicleCount": 20
+    },
+    {
+      "time": "2026-09-24T22:45:00",
+      "speedKmh": 58.0,
+      "vehicleCount": 25
+    },
+    {
+      "time": "2026-09-24T23:00:00",
+      "speedKmh": 64.8,
+      "vehicleCount": 16
+    },
+    {
+      "time": "2026-09-24T23:15:00",
+      "speedKmh": 65.4,
+      "vehicleCount": 16
+    },
+    {
+      "time": "2026-09-24T23:30:00",
+      "speedKmh": 66.3,
+      "vehicleCount": 13
+    },
+    {
+      "time": "2026-09-24T23:45:00",
+      "speedKmh": 58.6,
+      "vehicleCount": 21
+    }
+  ],
+  "forecast": [
+    {
+      "time": "2026-09-25T00:00:00",
+      "speedKmh": 63.1
+    },
+    {
+      "time": "2026-09-25T00:15:00",
+      "speedKmh": 63.3
+    },
+    {
+      "time": "2026-09-25T00:30:00",
+      "speedKmh": 63.4
+    },
+    {
+      "time": "2026-09-25T00:45:00",
+      "speedKmh": 63.5
+    },
+    {
+      "time": "2026-09-25T01:00:00",
+      "speedKmh": 63.5
+    },
+    {
+      "time": "2026-09-25T01:15:00",
+      "speedKmh": 63.6
+    },
+    {
+      "time": "2026-09-25T01:30:00",
+      "speedKmh": 63.7
+    },
+    {
+      "time": "2026-09-25T01:45:00",
+      "speedKmh": 63.8
+    },
+    {
+      "time": "2026-09-25T02:00:00",
+      "speedKmh": 63.9
+    },
+    {
+      "time": "2026-09-25T02:15:00",
+      "speedKmh": 63.9
+    },
+    {
+      "time": "2026-09-25T02:30:00",
+      "speedKmh": 64.0
+    },
+    {
+      "time": "2026-09-25T02:45:00",
+      "speedKmh": 64.1
+    }
+  ],
+  "limitations": "Experimental station-specific speed forecast. It is trained offline on a short historical window and is not live inference or a safety-critical prediction."
+}

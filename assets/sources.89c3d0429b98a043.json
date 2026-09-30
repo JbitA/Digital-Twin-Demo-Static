@@ -1,0 +1,66 @@
+{
+  "showcase_version": "2.3.0",
+  "live_sources": [
+    {
+      "name": "OpenStreetMap tiles",
+      "role": "live map tiles used by the static showcase",
+      "url": "https://tile.openstreetmap.org/"
+    },
+    {
+      "name": "OpenStreetMap",
+      "role": "map base and open geospatial data",
+      "url": "https://www.openstreetmap.org/"
+    },
+    {
+      "name": "Valhalla",
+      "role": "live road routing, alternatives, maneuvers and elevation",
+      "url": "https://valhalla1.openstreetmap.de/"
+    },
+    {
+      "name": "Digitraffic road weather",
+      "role": "Finnish roadside weather observations",
+      "url": "https://tie.digitraffic.fi/api/weather/v1/stations"
+    },
+    {
+      "name": "Digitraffic TMS",
+      "role": "traffic measurement station speed and volume observations",
+      "url": "https://tie.digitraffic.fi/api/tms/v1/stations"
+    },
+    {
+      "name": "Digitraffic traffic messages",
+      "role": "roadworks, traffic announcements and weight restrictions",
+      "url": "https://www.digitraffic.fi/en/road-traffic/"
+    },
+    {
+      "name": "Digitraffic AFIR",
+      "role": "EV charging location/status data",
+      "url": "https://afir.digitraffic.fi/"
+    },
+    {
+      "name": "Open-Meteo",
+      "role": "explicit fallback route-point atmospheric and snow context when the native GFS route sampler is unavailable",
+      "url": "https://open-meteo.com/en/docs"
+    },
+    {
+      "name": "NOAA / NCEP GFS",
+      "role": "native 0.25-degree Northern Hemisphere map grid and ETA-aligned road-route weather samples",
+      "url": "https://registry.opendata.aws/noaa-gfs-bdp-pds/"
+    },
+    {
+      "name": "OpenStreetMap Overpass",
+      "role": "route-corridor fuel-station POIs",
+      "url": "https://wiki.openstreetmap.org/wiki/Overpass_API"
+    },
+    {
+      "name": "NASA GIBS satellite imagery",
+      "role": "public satellite/earth-observation true-color map layer used for geographic context",
+      "url": "https://gibs.earthdata.nasa.gov/wms/epsg3857/best/wms.cgi"
+    }
+  ],
+  "synthetic_boundary": [
+    "Vehicle identities and fleet positions are deterministic demonstration state.",
+    "Vehicle operating masses and fallback energy baselines are representative showcase values, not OEM telemetry.",
+    "When live route authority is unavailable, the UI uses a clearly labelled deterministic demo corridor rather than disguising fabricated routes as live data.",
+    "Road-weather/TMS/charging/fuel demo fallbacks are deterministic and visibly labelled when a remote feed does not provide usable values."
+  ]
+}

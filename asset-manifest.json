@@ -1,0 +1,15 @@
+{
+  "version": "2.3.0",
+  "files": {
+    "asset-models.json": "assets/asset-models.7af871a2700a86d6.json",
+    "demo-assets.json": "assets/demo-assets.01085d3764f557a5.json",
+    "sources.json": "assets/sources.89c3d0429b98a043.json",
+    "tms-offline-forecast.json": "assets/tms-offline-forecast.ac481bfcef631a70.json",
+    "vehicles.json": "assets/vehicles.0ffcda0d24cc1f85.json",
+    "map-worker.js": "assets/map-worker.435f230028bfaa1f.js",
+    "app.js": "assets/app.8e019620701d2dae.js",
+    "style.css": "assets/style.394820863a4f454f.css",
+    "favicon.svg": "assets/favicon.1fb831b2ba5f3eae.svg",
+    "ahtiglobe-logo.png": "assets/ahtiglobe-logo.97d346efa522b59f.png"
+  }
+}

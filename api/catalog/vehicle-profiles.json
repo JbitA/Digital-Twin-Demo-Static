@@ -1,0 +1,1309 @@
+{
+  "schema_version": 2,
+  "status": "mvp_seed_v2",
+  "notes": "Representative production seed. Official range/consumption values are retained only where previously sourced; derived/modelled values remain explicitly labelled.",
+  "profiles": [
+    {
+      "profile_id": "toyota_corolla_petrol",
+      "manufacturer": "Toyota",
+      "model": "Corolla",
+      "domain": "vehicle",
+      "category": "passenger_car",
+      "energy_sources": [
+        "petrol"
+      ],
+      "powertrain": {
+        "kind": "ice",
+        "primary_energy_source": "petrol",
+        "secondary_energy_source": null,
+        "engine_power_kw": null,
+        "motor_power_kw": null,
+        "fuel_capacity_l": null,
+        "battery_usable_kwh": null,
+        "consumption_l_100km": null,
+        "consumption_kwh_100km": null,
+        "electric_range_km": null,
+        "energy_split_electric_fraction": null
+      },
+      "range": {
+        "official_min_km": null,
+        "official_max_km": null,
+        "official_statement": null,
+        "basis": null
+      },
+      "physical": {
+        "curb_mass_kg": null,
+        "gross_mass_kg": null,
+        "payload_kg": null,
+        "length_m": null,
+        "width_m": null,
+        "height_m": null,
+        "wheelbase_m": null,
+        "ground_clearance_m": null,
+        "cargo_volume_m3": null,
+        "seats": 5,
+        "towing_capacity_kg": null
+      },
+      "mobility": {
+        "drivetrain": null,
+        "wheel_count": 4,
+        "axle_count": 2,
+        "grade_percent": null,
+        "side_slope_deg": null,
+        "ford_depth_m": null,
+        "obstacle_height_m": null,
+        "trench_width_m": null,
+        "amphibious": false,
+        "offroad_capable": false,
+        "terrain_tags": [
+          "road"
+        ]
+      },
+      "specifications": {
+        "data_status": "official_identity_only"
+      }
+    },
+    {
+      "profile_id": "bmw_320d_diesel",
+      "manufacturer": "BMW",
+      "model": "320d",
+      "domain": "vehicle",
+      "category": "passenger_car",
+      "energy_sources": [
+        "diesel"
+      ],
+      "powertrain": {
+        "kind": "ice",
+        "primary_energy_source": "diesel",
+        "secondary_energy_source": null,
+        "engine_power_kw": 140,
+        "motor_power_kw": null,
+        "fuel_capacity_l": 59,
+        "battery_usable_kwh": null,
+        "consumption_l_100km": 5.55,
+        "consumption_kwh_100km": null,
+        "electric_range_km": null,
+        "energy_split_electric_fraction": null
+      },
+      "range": {
+        "official_min_km": null,
+        "official_max_km": null,
+        "official_statement": null,
+        "basis": "derived_from_59_l_and_5.4-5.7_l_per_100km"
+      },
+      "physical": {
+        "curb_mass_kg": null,
+        "gross_mass_kg": null,
+        "payload_kg": null,
+        "length_m": null,
+        "width_m": null,
+        "height_m": null,
+        "wheelbase_m": null,
+        "ground_clearance_m": null,
+        "cargo_volume_m3": null,
+        "seats": 5,
+        "towing_capacity_kg": null
+      },
+      "mobility": {
+        "drivetrain": "xDrive",
+        "wheel_count": 4,
+        "axle_count": 2,
+        "grade_percent": null,
+        "side_slope_deg": null,
+        "ford_depth_m": null,
+        "obstacle_height_m": null,
+        "trench_width_m": null,
+        "amphibious": false,
+        "offroad_capable": false,
+        "terrain_tags": [
+          "road"
+        ]
+      },
+      "specifications": {
+        "data_status": "official_plus_derived",
+        "consumption_source": "BMW Finland"
+      }
+    },
+    {
+      "profile_id": "toyota_corolla_cross_hybrid",
+      "manufacturer": "Toyota",
+      "model": "Corolla Cross 1.8 Hybrid",
+      "domain": "vehicle",
+      "category": "passenger_car",
+      "energy_sources": [
+        "petrol",
+        "electricity"
+      ],
+      "powertrain": {
+        "kind": "hev",
+        "primary_energy_source": "petrol",
+        "secondary_energy_source": "electricity",
+        "engine_power_kw": null,
+        "motor_power_kw": null,
+        "fuel_capacity_l": 36,
+        "battery_usable_kwh": null,
+        "consumption_l_100km": 4.9,
+        "consumption_kwh_100km": null,
+        "electric_range_km": null,
+        "energy_split_electric_fraction": 0.35
+      },
+      "range": {
+        "official_min_km": null,
+        "official_max_km": 734.7,
+        "official_statement": null,
+        "basis": "derived_from_36_l_and_4.9_l_per_100km"
+      },
+      "physical": {
+        "curb_mass_kg": null,
+        "gross_mass_kg": null,
+        "payload_kg": null,
+        "length_m": null,
+        "width_m": null,
+        "height_m": null,
+        "wheelbase_m": null,
+        "ground_clearance_m": null,
+        "cargo_volume_m3": null,
+        "seats": 5,
+        "towing_capacity_kg": null
+      },
+      "mobility": {
+        "drivetrain": "FWD",
+        "wheel_count": 4,
+        "axle_count": 2,
+        "grade_percent": null,
+        "side_slope_deg": null,
+        "ford_depth_m": null,
+        "obstacle_height_m": null,
+        "trench_width_m": null,
+        "amphibious": false,
+        "offroad_capable": false,
+        "terrain_tags": [
+          "road"
+        ]
+      },
+      "specifications": {
+        "data_status": "official_plus_derived",
+        "consumption_basis": "WLTP"
+      }
+    },
+    {
+      "profile_id": "mitsubishi_outlander_phev",
+      "manufacturer": "Mitsubishi",
+      "model": "Outlander PHEV",
+      "domain": "vehicle",
+      "category": "passenger_car",
+      "energy_sources": [
+        "petrol",
+        "electricity"
+      ],
+      "powertrain": {
+        "kind": "phev",
+        "primary_energy_source": "petrol",
+        "secondary_energy_source": "electricity",
+        "engine_power_kw": null,
+        "motor_power_kw": null,
+        "fuel_capacity_l": null,
+        "battery_usable_kwh": null,
+        "consumption_l_100km": null,
+        "consumption_kwh_100km": null,
+        "electric_range_km": null,
+        "energy_split_electric_fraction": 0.5
+      },
+      "range": {
+        "official_min_km": null,
+        "official_max_km": null,
+        "official_statement": null,
+        "basis": "pending_MY26_verification"
+      },
+      "physical": {
+        "curb_mass_kg": null,
+        "gross_mass_kg": null,
+        "payload_kg": null,
+        "length_m": 4.695,
+        "width_m": 1.8,
+        "height_m": 1.71,
+        "wheelbase_m": 2.705,
+        "ground_clearance_m": 0.19,
+        "cargo_volume_m3": null,
+        "seats": 5,
+        "towing_capacity_kg": 1500
+      },
+      "mobility": {
+        "drivetrain": "4WD",
+        "wheel_count": 4,
+        "axle_count": 2,
+        "grade_percent": null,
+        "side_slope_deg": null,
+        "ford_depth_m": 0.4,
+        "obstacle_height_m": null,
+        "trench_width_m": null,
+        "amphibious": false,
+        "offroad_capable": true,
+        "terrain_tags": [
+          "road",
+          "light_offroad"
+        ]
+      },
+      "specifications": {
+        "data_status": "partially_verified",
+        "verification_required": "MY26 technical sheet"
+      }
+    },
+    {
+      "profile_id": "renault_megane_e_tech_60kwh",
+      "manufacturer": "Renault",
+      "model": "Megane E-Tech Electric 60 kWh",
+      "domain": "vehicle",
+      "category": "passenger_car",
+      "energy_sources": [
+        "electricity"
+      ],
+      "powertrain": {
+        "kind": "bev",
+        "primary_energy_source": "electricity",
+        "secondary_energy_source": null,
+        "engine_power_kw": 160,
+        "motor_power_kw": 160,
+        "fuel_capacity_l": null,
+        "battery_usable_kwh": 60,
+        "consumption_l_100km": null,
+        "consumption_kwh_100km": 15.5,
+        "electric_range_km": 467,
+        "energy_split_electric_fraction": 1
+      },
+      "range": {
+        "official_min_km": 461,
+        "official_max_km": 467,
+        "official_statement": "461-467 km WLTP depending on version",
+        "basis": "WLTP"
+      },
+      "physical": {
+        "curb_mass_kg": null,
+        "gross_mass_kg": null,
+        "payload_kg": null,
+        "length_m": null,
+        "width_m": null,
+        "height_m": null,
+        "wheelbase_m": null,
+        "ground_clearance_m": null,
+        "cargo_volume_m3": null,
+        "seats": 5,
+        "towing_capacity_kg": null
+      },
+      "mobility": {
+        "drivetrain": "FWD",
+        "wheel_count": 4,
+        "axle_count": 2,
+        "grade_percent": null,
+        "side_slope_deg": null,
+        "ford_depth_m": null,
+        "obstacle_height_m": null,
+        "trench_width_m": null,
+        "amphibious": false,
+        "offroad_capable": false,
+        "terrain_tags": [
+          "road"
+        ]
+      },
+      "specifications": {
+        "data_status": "official_plus_baseline_consumption_model"
+      }
+    },
+    {
+      "profile_id": "ford_transit_diesel",
+      "manufacturer": "Ford",
+      "model": "Transit 2.0 EcoBlue",
+      "domain": "vehicle",
+      "category": "van",
+      "energy_sources": [
+        "diesel"
+      ],
+      "powertrain": {
+        "kind": "ice",
+        "primary_energy_source": "diesel",
+        "secondary_energy_source": null,
+        "engine_power_kw": null,
+        "motor_power_kw": null,
+        "fuel_capacity_l": null,
+        "battery_usable_kwh": null,
+        "consumption_l_100km": 9.65,
+        "consumption_kwh_100km": null,
+        "electric_range_km": null,
+        "energy_split_electric_fraction": null
+      },
+      "range": {
+        "official_min_km": null,
+        "official_max_km": null,
+        "official_statement": null,
+        "basis": "derived from representative 8.6-10.7 WLTP consumption; tank configuration dependent"
+      },
+      "physical": {
+        "curb_mass_kg": null,
+        "gross_mass_kg": null,
+        "payload_kg": 2980,
+        "length_m": null,
+        "width_m": null,
+        "height_m": null,
+        "wheelbase_m": null,
+        "ground_clearance_m": null,
+        "cargo_volume_m3": 15.1,
+        "seats": 3,
+        "towing_capacity_kg": null
+      },
+      "mobility": {
+        "drivetrain": "configuration dependent",
+        "wheel_count": 4,
+        "axle_count": 2,
+        "grade_percent": null,
+        "side_slope_deg": null,
+        "ford_depth_m": null,
+        "obstacle_height_m": null,
+        "trench_width_m": null,
+        "amphibious": false,
+        "offroad_capable": false,
+        "terrain_tags": [
+          "road",
+          "logistics"
+        ]
+      },
+      "specifications": {
+        "data_status": "official_plus_representative_baseline"
+      }
+    },
+    {
+      "profile_id": "ford_e_transit",
+      "manufacturer": "Ford",
+      "model": "E-Transit 89 kWh",
+      "domain": "vehicle",
+      "category": "van",
+      "energy_sources": [
+        "electricity"
+      ],
+      "powertrain": {
+        "kind": "bev",
+        "primary_energy_source": "electricity",
+        "secondary_energy_source": null,
+        "engine_power_kw": 198,
+        "motor_power_kw": 198,
+        "fuel_capacity_l": null,
+        "battery_usable_kwh": 89,
+        "consumption_l_100km": null,
+        "consumption_kwh_100km": 31.5,
+        "electric_range_km": 371,
+        "energy_split_electric_fraction": 1
+      },
+      "range": {
+        "official_min_km": 371,
+        "official_max_km": 371,
+        "official_statement": "up to 371 km for the referenced Finnish 89 kWh configuration",
+        "basis": "manufacturer range"
+      },
+      "physical": {
+        "curb_mass_kg": null,
+        "gross_mass_kg": 4250,
+        "payload_kg": 1484,
+        "length_m": null,
+        "width_m": null,
+        "height_m": null,
+        "wheelbase_m": null,
+        "ground_clearance_m": null,
+        "cargo_volume_m3": 15.1,
+        "seats": 3,
+        "towing_capacity_kg": null
+      },
+      "mobility": {
+        "drivetrain": "RWD",
+        "wheel_count": 4,
+        "axle_count": 2,
+        "grade_percent": null,
+        "side_slope_deg": null,
+        "ford_depth_m": null,
+        "obstacle_height_m": null,
+        "trench_width_m": null,
+        "amphibious": false,
+        "offroad_capable": false,
+        "terrain_tags": [
+          "road",
+          "logistics"
+        ]
+      },
+      "specifications": {
+        "data_status": "official_plus_baseline_consumption_model"
+      }
+    },
+    {
+      "profile_id": "ford_transit_custom_phev",
+      "manufacturer": "Ford",
+      "model": "Transit Custom PHEV",
+      "domain": "vehicle",
+      "category": "van",
+      "energy_sources": [
+        "petrol",
+        "electricity"
+      ],
+      "powertrain": {
+        "kind": "phev",
+        "primary_energy_source": "petrol",
+        "secondary_energy_source": "electricity",
+        "engine_power_kw": null,
+        "motor_power_kw": null,
+        "fuel_capacity_l": null,
+        "battery_usable_kwh": 11.8,
+        "consumption_l_100km": 3.95,
+        "consumption_kwh_100km": null,
+        "electric_range_km": 53.5,
+        "energy_split_electric_fraction": 0.45
+      },
+      "range": {
+        "official_min_km": 53,
+        "official_max_km": 54,
+        "official_statement": "53-54 km electric WLTP range",
+        "basis": "WLTP electric range"
+      },
+      "physical": {
+        "curb_mass_kg": null,
+        "gross_mass_kg": null,
+        "payload_kg": null,
+        "length_m": null,
+        "width_m": null,
+        "height_m": null,
+        "wheelbase_m": null,
+        "ground_clearance_m": null,
+        "cargo_volume_m3": null,
+        "seats": 3,
+        "towing_capacity_kg": 2300
+      },
+      "mobility": {
+        "drivetrain": "configuration dependent",
+        "wheel_count": 4,
+        "axle_count": 2,
+        "grade_percent": null,
+        "side_slope_deg": null,
+        "ford_depth_m": null,
+        "obstacle_height_m": null,
+        "trench_width_m": null,
+        "amphibious": false,
+        "offroad_capable": false,
+        "terrain_tags": [
+          "road",
+          "logistics"
+        ]
+      },
+      "specifications": {
+        "data_status": "official_plus_representative_baseline"
+      }
+    },
+    {
+      "profile_id": "volvo_fh_diesel",
+      "manufacturer": "Volvo",
+      "model": "FH Diesel",
+      "domain": "vehicle",
+      "category": "truck",
+      "energy_sources": [
+        "diesel",
+        "hvo"
+      ],
+      "powertrain": {
+        "kind": "ice",
+        "primary_energy_source": "diesel",
+        "secondary_energy_source": "hvo",
+        "engine_power_kw": 418,
+        "motor_power_kw": null,
+        "fuel_capacity_l": null,
+        "battery_usable_kwh": null,
+        "consumption_l_100km": 30,
+        "consumption_kwh_100km": null,
+        "electric_range_km": null,
+        "energy_split_electric_fraction": null
+      },
+      "range": {
+        "official_min_km": null,
+        "official_max_km": null,
+        "official_statement": null,
+        "basis": "tank configuration dependent"
+      },
+      "physical": {
+        "curb_mass_kg": null,
+        "gross_mass_kg": null,
+        "payload_kg": null,
+        "length_m": null,
+        "width_m": null,
+        "height_m": null,
+        "wheelbase_m": null,
+        "ground_clearance_m": null,
+        "cargo_volume_m3": null,
+        "seats": 3,
+        "towing_capacity_kg": null
+      },
+      "mobility": {
+        "drivetrain": "configuration dependent",
+        "wheel_count": null,
+        "axle_count": null,
+        "grade_percent": null,
+        "side_slope_deg": null,
+        "ford_depth_m": null,
+        "obstacle_height_m": null,
+        "trench_width_m": null,
+        "amphibious": false,
+        "offroad_capable": false,
+        "terrain_tags": [
+          "road",
+          "heavy_logistics"
+        ]
+      },
+      "specifications": {
+        "data_status": "official_powertrain_plus_modelled_baseline"
+      }
+    },
+    {
+      "profile_id": "volvo_fh_electric",
+      "manufacturer": "Volvo",
+      "model": "FH Electric",
+      "domain": "vehicle",
+      "category": "truck",
+      "energy_sources": [
+        "electricity"
+      ],
+      "powertrain": {
+        "kind": "bev",
+        "primary_energy_source": "electricity",
+        "secondary_energy_source": null,
+        "engine_power_kw": 540,
+        "motor_power_kw": 540,
+        "fuel_capacity_l": null,
+        "battery_usable_kwh": null,
+        "consumption_l_100km": null,
+        "consumption_kwh_100km": 150,
+        "electric_range_km": 470,
+        "energy_split_electric_fraction": 1
+      },
+      "range": {
+        "official_min_km": 470,
+        "official_max_km": 470,
+        "official_statement": "up to 470 km; configuration and combination mass dependent",
+        "basis": "manufacturer range"
+      },
+      "physical": {
+        "curb_mass_kg": null,
+        "gross_mass_kg": 65000,
+        "payload_kg": null,
+        "length_m": null,
+        "width_m": null,
+        "height_m": null,
+        "wheelbase_m": null,
+        "ground_clearance_m": null,
+        "cargo_volume_m3": null,
+        "seats": 2,
+        "towing_capacity_kg": null
+      },
+      "mobility": {
+        "drivetrain": "configuration dependent",
+        "wheel_count": null,
+        "axle_count": null,
+        "grade_percent": null,
+        "side_slope_deg": null,
+        "ford_depth_m": null,
+        "obstacle_height_m": null,
+        "trench_width_m": null,
+        "amphibious": false,
+        "offroad_capable": false,
+        "terrain_tags": [
+          "road",
+          "heavy_logistics"
+        ]
+      },
+      "specifications": {
+        "data_status": "official_plus_modelled_baseline"
+      }
+    },
+    {
+      "profile_id": "volvo_fh_gas",
+      "manufacturer": "Volvo",
+      "model": "FH Gas-powered",
+      "domain": "vehicle",
+      "category": "truck",
+      "energy_sources": [
+        "lng",
+        "bio_lng"
+      ],
+      "powertrain": {
+        "kind": "alternative_fuel",
+        "primary_energy_source": "lng",
+        "secondary_energy_source": "bio_lng",
+        "engine_power_kw": 368,
+        "motor_power_kw": null,
+        "fuel_capacity_l": 460,
+        "battery_usable_kwh": null,
+        "consumption_l_100km": 46,
+        "consumption_kwh_100km": null,
+        "electric_range_km": 1000,
+        "energy_split_electric_fraction": null
+      },
+      "range": {
+        "official_min_km": 1000,
+        "official_max_km": 1000,
+        "official_statement": "up to 1,000 km",
+        "basis": "manufacturer range"
+      },
+      "physical": {
+        "curb_mass_kg": null,
+        "gross_mass_kg": null,
+        "payload_kg": null,
+        "length_m": null,
+        "width_m": null,
+        "height_m": null,
+        "wheelbase_m": null,
+        "ground_clearance_m": null,
+        "cargo_volume_m3": null,
+        "seats": 2,
+        "towing_capacity_kg": null
+      },
+      "mobility": {
+        "drivetrain": "configuration dependent",
+        "wheel_count": null,
+        "axle_count": null,
+        "grade_percent": null,
+        "side_slope_deg": null,
+        "ford_depth_m": null,
+        "obstacle_height_m": null,
+        "trench_width_m": null,
+        "amphibious": false,
+        "offroad_capable": false,
+        "terrain_tags": [
+          "road",
+          "heavy_logistics"
+        ]
+      },
+      "specifications": {
+        "data_status": "official_range_plus_powertrain_with_modelled_lng_volume_baseline",
+        "energy_model_note": "460 L LNG liquid-volume capacity and 46 L/100 km are planning assumptions calibrated to the published 1,000 km range; they are not manufacturer tank or consumption specifications."
+      }
+    },
+    {
+      "profile_id": "patria_6x6",
+      "manufacturer": "Patria",
+      "model": "6x6",
+      "domain": "vehicle",
+      "category": "military_6x6",
+      "energy_sources": [
+        "diesel"
+      ],
+      "powertrain": {
+        "kind": "ice",
+        "primary_energy_source": "diesel",
+        "secondary_energy_source": null,
+        "engine_power_kw": 325,
+        "motor_power_kw": null,
+        "fuel_capacity_l": null,
+        "battery_usable_kwh": null,
+        "consumption_l_100km": null,
+        "consumption_kwh_100km": null,
+        "electric_range_km": null,
+        "energy_split_electric_fraction": null
+      },
+      "range": {
+        "official_min_km": 700,
+        "official_max_km": null,
+        "official_statement": ">700 km operating distance",
+        "basis": "Patria technical brochure"
+      },
+      "physical": {
+        "curb_mass_kg": null,
+        "gross_mass_kg": 24000,
+        "payload_kg": 8500,
+        "length_m": 7.5,
+        "width_m": 2.9,
+        "height_m": 2.5,
+        "wheelbase_m": null,
+        "ground_clearance_m": null,
+        "cargo_volume_m3": null,
+        "seats": null,
+        "towing_capacity_kg": null
+      },
+      "mobility": {
+        "drivetrain": "AWD",
+        "wheel_count": 6,
+        "axle_count": 3,
+        "grade_percent": 60,
+        "side_slope_deg": 30,
+        "ford_depth_m": 1.5,
+        "obstacle_height_m": 0.6,
+        "trench_width_m": 1.2,
+        "amphibious": true,
+        "offroad_capable": true,
+        "terrain_tags": [
+          "road",
+          "offroad",
+          "forest",
+          "wetland",
+          "snow"
+        ]
+      },
+      "specifications": {
+        "data_status": "official"
+      }
+    },
+    {
+      "profile_id": "patria_amv_xp",
+      "manufacturer": "Patria",
+      "model": "AMV XP",
+      "domain": "vehicle",
+      "category": "military_8x8",
+      "energy_sources": [
+        "diesel"
+      ],
+      "powertrain": {
+        "kind": "ice",
+        "primary_energy_source": "diesel",
+        "secondary_energy_source": null,
+        "engine_power_kw": 450,
+        "motor_power_kw": null,
+        "fuel_capacity_l": null,
+        "battery_usable_kwh": null,
+        "consumption_l_100km": null,
+        "consumption_kwh_100km": null,
+        "electric_range_km": null,
+        "energy_split_electric_fraction": null
+      },
+      "range": {
+        "official_min_km": 800,
+        "official_max_km": 1000,
+        "official_statement": "800-1,000 km operating range",
+        "basis": "Patria technical brochure"
+      },
+      "physical": {
+        "curb_mass_kg": null,
+        "gross_mass_kg": 32000,
+        "payload_kg": 15000,
+        "length_m": 8.1,
+        "width_m": 2.8,
+        "height_m": 2.4,
+        "wheelbase_m": null,
+        "ground_clearance_m": null,
+        "cargo_volume_m3": null,
+        "seats": null,
+        "towing_capacity_kg": null
+      },
+      "mobility": {
+        "drivetrain": "continuous AWD",
+        "wheel_count": 8,
+        "axle_count": 4,
+        "grade_percent": 60,
+        "side_slope_deg": 30,
+        "ford_depth_m": 1.8,
+        "obstacle_height_m": 0.7,
+        "trench_width_m": 2.1,
+        "amphibious": true,
+        "offroad_capable": true,
+        "terrain_tags": [
+          "road",
+          "offroad",
+          "forest",
+          "wetland",
+          "snow"
+        ]
+      },
+      "specifications": {
+        "data_status": "official"
+      }
+    },
+    {
+      "profile_id": "patria_trackx",
+      "manufacturer": "Patria",
+      "model": "TRACKX",
+      "domain": "vehicle",
+      "category": "military_tracked",
+      "energy_sources": [
+        "diesel"
+      ],
+      "powertrain": {
+        "kind": "ice",
+        "primary_energy_source": "diesel",
+        "secondary_energy_source": null,
+        "engine_power_kw": 269,
+        "motor_power_kw": null,
+        "fuel_capacity_l": 500,
+        "battery_usable_kwh": null,
+        "consumption_l_100km": 100,
+        "consumption_kwh_100km": null,
+        "electric_range_km": null,
+        "energy_split_electric_fraction": null
+      },
+      "range": {
+        "official_min_km": 500,
+        "official_max_km": 500,
+        "official_statement": "500 km operational range",
+        "basis": "Patria technical sheet"
+      },
+      "physical": {
+        "curb_mass_kg": null,
+        "gross_mass_kg": 15000,
+        "payload_kg": null,
+        "length_m": 7.3,
+        "width_m": 2.95,
+        "height_m": 2,
+        "wheelbase_m": null,
+        "ground_clearance_m": 0.55,
+        "cargo_volume_m3": null,
+        "seats": 12,
+        "towing_capacity_kg": null
+      },
+      "mobility": {
+        "drivetrain": "tracked",
+        "wheel_count": null,
+        "axle_count": null,
+        "grade_percent": 60,
+        "side_slope_deg": null,
+        "ford_depth_m": null,
+        "obstacle_height_m": null,
+        "trench_width_m": 2,
+        "amphibious": true,
+        "offroad_capable": true,
+        "terrain_tags": [
+          "road",
+          "offroad",
+          "forest",
+          "wetland",
+          "snow",
+          "bog"
+        ]
+      },
+      "specifications": {
+        "data_status": "official_range_with_modelled_diesel_baseline",
+        "energy_model_note": "Diesel, 500 L capacity and 100 L/100 km are explicit synthetic planning assumptions calibrated to the published 500 km operational range; fuel specifications remain unverified."
+      }
+    },
+    {
+      "profile_id": "civilian_drone",
+      "manufacturer": "Demonstration",
+      "model": "Survey drone",
+      "domain": "air",
+      "category": "drone",
+      "energy_sources": [
+        "electricity"
+      ],
+      "powertrain": {
+        "kind": "bev",
+        "primary_energy_source": "electricity",
+        "battery_usable_kwh": 0.4,
+        "fuel_capacity_l": 0
+      },
+      "physical": {
+        "curb_mass_kg": 4,
+        "gross_mass_kg": 6,
+        "payload_kg": 2,
+        "length_m": 1,
+        "width_m": 1,
+        "height_m": 0.5,
+        "seats": 0
+      },
+      "mobility": {
+        "terrain_tags": [
+          "air"
+        ]
+      },
+      "range": {
+        "basis": "Energy reserve and hourly-use model; scenario assumptions displayed"
+      },
+      "specifications": {
+        "data_status": "illustrative_class_assumptions",
+        "source": "Synthetic class specification, not an OEM datasheet",
+        "verification": "Unverified design values"
+      },
+      "operating_model": {
+        "revision": "illustrative-1",
+        "domain": "air",
+        "homeBase": "helsinki",
+        "capacity": 0.4,
+        "unit": "kWh",
+        "cruise": 40,
+        "burnPerHour": 0.65,
+        "fixedEnergy": 0.025,
+        "reservePct": 20,
+        "hotelPerHour": 0,
+        "payloadMax": 2,
+        "payloadPenalty": 0.2,
+        "basis": "Illustrative class assumptions; not calibrated or manufacturer-approved",
+        "limitations": "No airspace, terrain clearance, icing or altitude performance"
+      }
+    },
+    {
+      "profile_id": "military_drone",
+      "manufacturer": "Demonstration",
+      "model": "Recon drone",
+      "domain": "air",
+      "category": "military_drone",
+      "energy_sources": [
+        "electricity"
+      ],
+      "powertrain": {
+        "kind": "bev",
+        "primary_energy_source": "electricity",
+        "battery_usable_kwh": 2,
+        "fuel_capacity_l": 0
+      },
+      "physical": {
+        "curb_mass_kg": 18,
+        "gross_mass_kg": 25,
+        "payload_kg": 7,
+        "length_m": 1,
+        "width_m": 1,
+        "height_m": 0.5,
+        "seats": 0
+      },
+      "mobility": {
+        "terrain_tags": [
+          "air"
+        ]
+      },
+      "range": {
+        "basis": "Energy reserve and hourly-use model; scenario assumptions displayed"
+      },
+      "specifications": {
+        "data_status": "illustrative_class_assumptions",
+        "source": "Synthetic class specification, not an OEM datasheet",
+        "verification": "Unverified design values"
+      },
+      "operating_model": {
+        "revision": "illustrative-1",
+        "domain": "air",
+        "homeBase": "utti",
+        "capacity": 2,
+        "unit": "kWh",
+        "cruise": 65,
+        "burnPerHour": 2,
+        "fixedEnergy": 0.08,
+        "reservePct": 20,
+        "hotelPerHour": 0,
+        "payloadMax": 7,
+        "payloadPenalty": 0.2,
+        "basis": "Illustrative class assumptions; not calibrated or manufacturer-approved",
+        "limitations": "No airspace, terrain clearance, icing or altitude performance"
+      }
+    },
+    {
+      "profile_id": "civilian_helicopter",
+      "manufacturer": "Demonstration",
+      "model": "Utility helicopter",
+      "domain": "air",
+      "category": "helicopter",
+      "energy_sources": [
+        "aviation_fuel"
+      ],
+      "powertrain": {
+        "kind": "ice",
+        "primary_energy_source": "aviation_fuel",
+        "battery_usable_kwh": 0,
+        "fuel_capacity_l": 600
+      },
+      "physical": {
+        "curb_mass_kg": 1800,
+        "gross_mass_kg": 3000,
+        "payload_kg": 1200,
+        "length_m": 12,
+        "width_m": 11,
+        "height_m": 3.5,
+        "seats": 4
+      },
+      "mobility": {
+        "terrain_tags": [
+          "air"
+        ]
+      },
+      "range": {
+        "basis": "Energy reserve and hourly-use model; scenario assumptions displayed"
+      },
+      "specifications": {
+        "data_status": "illustrative_class_assumptions",
+        "source": "Synthetic class specification, not an OEM datasheet",
+        "verification": "Unverified design values"
+      },
+      "operating_model": {
+        "revision": "illustrative-1",
+        "domain": "air",
+        "homeBase": "helsinki",
+        "capacity": 600,
+        "unit": "L",
+        "cruise": 210,
+        "burnPerHour": 200,
+        "fixedEnergy": 20,
+        "reservePct": 20,
+        "hotelPerHour": 0,
+        "payloadMax": 1200,
+        "payloadPenalty": 0.2,
+        "basis": "Illustrative class assumptions; not calibrated or manufacturer-approved",
+        "limitations": "No airspace, terrain clearance, icing or altitude performance"
+      }
+    },
+    {
+      "profile_id": "military_helicopter",
+      "manufacturer": "Demonstration",
+      "model": "Transport helicopter",
+      "domain": "air",
+      "category": "military_helicopter",
+      "energy_sources": [
+        "aviation_fuel"
+      ],
+      "powertrain": {
+        "kind": "ice",
+        "primary_energy_source": "aviation_fuel",
+        "battery_usable_kwh": 0,
+        "fuel_capacity_l": 2200
+      },
+      "physical": {
+        "curb_mass_kg": 6500,
+        "gross_mass_kg": 10500,
+        "payload_kg": 4000,
+        "length_m": 12,
+        "width_m": 11,
+        "height_m": 3.5,
+        "seats": 20
+      },
+      "mobility": {
+        "terrain_tags": [
+          "air"
+        ]
+      },
+      "range": {
+        "basis": "Energy reserve and hourly-use model; scenario assumptions displayed"
+      },
+      "specifications": {
+        "data_status": "illustrative_class_assumptions",
+        "source": "Synthetic class specification, not an OEM datasheet",
+        "verification": "Unverified design values"
+      },
+      "operating_model": {
+        "revision": "illustrative-1",
+        "domain": "air",
+        "homeBase": "utti",
+        "capacity": 2200,
+        "unit": "L",
+        "cruise": 240,
+        "burnPerHour": 650,
+        "fixedEnergy": 80,
+        "reservePct": 20,
+        "hotelPerHour": 0,
+        "payloadMax": 4000,
+        "payloadPenalty": 0.2,
+        "basis": "Illustrative class assumptions; not calibrated or manufacturer-approved",
+        "limitations": "No airspace, terrain clearance, icing or altitude performance"
+      }
+    },
+    {
+      "profile_id": "civilian_aircraft",
+      "manufacturer": "Demonstration",
+      "model": "Regional aircraft",
+      "domain": "air",
+      "category": "aircraft",
+      "energy_sources": [
+        "aviation_fuel"
+      ],
+      "powertrain": {
+        "kind": "ice",
+        "primary_energy_source": "aviation_fuel",
+        "battery_usable_kwh": 0,
+        "fuel_capacity_l": 5000
+      },
+      "physical": {
+        "curb_mass_kg": 13000,
+        "gross_mass_kg": 23000,
+        "payload_kg": 10000,
+        "length_m": 25,
+        "width_m": 27,
+        "height_m": 8,
+        "seats": 68
+      },
+      "mobility": {
+        "terrain_tags": [
+          "air"
+        ]
+      },
+      "range": {
+        "basis": "Energy reserve and hourly-use model; scenario assumptions displayed"
+      },
+      "specifications": {
+        "data_status": "illustrative_class_assumptions",
+        "source": "Synthetic class specification, not an OEM datasheet",
+        "verification": "Unverified design values"
+      },
+      "operating_model": {
+        "revision": "illustrative-1",
+        "domain": "air",
+        "homeBase": "helsinki",
+        "capacity": 5000,
+        "unit": "L",
+        "cruise": 450,
+        "burnPerHour": 850,
+        "fixedEnergy": 180,
+        "reservePct": 20,
+        "hotelPerHour": 0,
+        "payloadMax": 10000,
+        "payloadPenalty": 0.2,
+        "basis": "Illustrative class assumptions; not calibrated or manufacturer-approved",
+        "limitations": "No airspace, terrain clearance, icing or altitude performance"
+      }
+    },
+    {
+      "profile_id": "military_aircraft",
+      "manufacturer": "Demonstration",
+      "model": "Transport aircraft",
+      "domain": "air",
+      "category": "military_aircraft",
+      "energy_sources": [
+        "aviation_fuel"
+      ],
+      "powertrain": {
+        "kind": "ice",
+        "primary_energy_source": "aviation_fuel",
+        "battery_usable_kwh": 0,
+        "fuel_capacity_l": 7000
+      },
+      "physical": {
+        "curb_mass_kg": 18000,
+        "gross_mass_kg": 30000,
+        "payload_kg": 12000,
+        "length_m": 25,
+        "width_m": 27,
+        "height_m": 8,
+        "seats": 40
+      },
+      "mobility": {
+        "terrain_tags": [
+          "air"
+        ]
+      },
+      "range": {
+        "basis": "Energy reserve and hourly-use model; scenario assumptions displayed"
+      },
+      "specifications": {
+        "data_status": "illustrative_class_assumptions",
+        "source": "Synthetic class specification, not an OEM datasheet",
+        "verification": "Unverified design values"
+      },
+      "operating_model": {
+        "revision": "illustrative-1",
+        "domain": "air",
+        "homeBase": "pirkkala",
+        "capacity": 7000,
+        "unit": "L",
+        "cruise": 480,
+        "burnPerHour": 1250,
+        "fixedEnergy": 250,
+        "reservePct": 20,
+        "hotelPerHour": 0,
+        "payloadMax": 12000,
+        "payloadPenalty": 0.2,
+        "basis": "Illustrative class assumptions; not calibrated or manufacturer-approved",
+        "limitations": "No airspace, terrain clearance, icing or altitude performance"
+      }
+    },
+    {
+      "profile_id": "civilian_ship",
+      "manufacturer": "Demonstration",
+      "model": "Harbour service ship",
+      "domain": "marine",
+      "category": "ship",
+      "energy_sources": [
+        "diesel"
+      ],
+      "powertrain": {
+        "kind": "ice",
+        "primary_energy_source": "diesel",
+        "battery_usable_kwh": 0,
+        "fuel_capacity_l": 15000
+      },
+      "physical": {
+        "curb_mass_kg": 150000,
+        "gross_mass_kg": 220000,
+        "payload_kg": 70000,
+        "length_m": 35,
+        "width_m": 8,
+        "height_m": 4,
+        "seats": 12
+      },
+      "mobility": {
+        "terrain_tags": [
+          "marine"
+        ]
+      },
+      "range": {
+        "basis": "Energy reserve and hourly-use model; scenario assumptions displayed"
+      },
+      "specifications": {
+        "data_status": "illustrative_class_assumptions",
+        "source": "Synthetic class specification, not an OEM datasheet",
+        "verification": "Unverified design values"
+      },
+      "operating_model": {
+        "revision": "illustrative-1",
+        "domain": "marine",
+        "homeBase": "helsinki",
+        "capacity": 15000,
+        "unit": "L",
+        "cruise": 22.224,
+        "burnPerHour": 350,
+        "fixedEnergy": 25,
+        "reservePct": 15,
+        "hotelPerHour": 30,
+        "payloadMax": 70000,
+        "payloadPenalty": 0.2,
+        "basis": "Illustrative class assumptions; not calibrated or manufacturer-approved",
+        "limitations": "No validated fairway, bathymetry, under-keel clearance, currents or traffic separation"
+      }
+    },
+    {
+      "profile_id": "military_ship",
+      "manufacturer": "Demonstration",
+      "model": "Patrol ship",
+      "domain": "marine",
+      "category": "military_ship",
+      "energy_sources": [
+        "diesel"
+      ],
+      "powertrain": {
+        "kind": "ice",
+        "primary_energy_source": "diesel",
+        "battery_usable_kwh": 0,
+        "fuel_capacity_l": 22000
+      },
+      "physical": {
+        "curb_mass_kg": 250000,
+        "gross_mass_kg": 350000,
+        "payload_kg": 100000,
+        "length_m": 35,
+        "width_m": 8,
+        "height_m": 4,
+        "seats": 24
+      },
+      "mobility": {
+        "terrain_tags": [
+          "marine"
+        ]
+      },
+      "range": {
+        "basis": "Energy reserve and hourly-use model; scenario assumptions displayed"
+      },
+      "specifications": {
+        "data_status": "illustrative_class_assumptions",
+        "source": "Synthetic class specification, not an OEM datasheet",
+        "verification": "Unverified design values"
+      },
+      "operating_model": {
+        "revision": "illustrative-1",
+        "domain": "marine",
+        "homeBase": "helsinki",
+        "capacity": 22000,
+        "unit": "L",
+        "cruise": 29.632,
+        "burnPerHour": 500,
+        "fixedEnergy": 40,
+        "reservePct": 15,
+        "hotelPerHour": 45,
+        "payloadMax": 100000,
+        "payloadPenalty": 0.2,
+        "basis": "Illustrative class assumptions; not calibrated or manufacturer-approved",
+        "limitations": "No validated fairway, bathymetry, under-keel clearance, currents or traffic separation"
+      }
+    }
+  ]
+}
