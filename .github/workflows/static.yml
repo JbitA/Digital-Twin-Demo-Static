@@ -27,6 +27,14 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v6
 
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Test replay and snapshot
+        run: node --test tools/model.test.mjs
+
       - name: Verify static payload
         run: python3 tools/verify-static.py
 

@@ -1,39 +1,47 @@
 {
-  "captured": "2026-10-02T19:30:37.040Z",
+  "checkedAt": "2026-10-02T23:23:47.081Z",
+  "url": "http://127.0.0.1:38626/Digital-Twin-Demo-Static/",
   "phone": "iPhone 12 browser emulation",
-  "subpath": "/Digital-Twin-Demo-Static/",
   "results": [
     {
       "engine": "chromium",
       "viewport": "desktop",
+      "passed": true,
+      "externalRequests": 0,
       "apiRequests": 0,
       "webSockets": 0,
       "pageErrors": [],
-      "passed": true
+      "smallestWidth": 320
     },
     {
       "engine": "chromium",
       "viewport": "phone",
+      "passed": true,
+      "externalRequests": 0,
       "apiRequests": 0,
       "webSockets": 0,
       "pageErrors": [],
-      "passed": true
+      "smallestWidth": 320
     },
     {
       "engine": "webkit",
       "viewport": "desktop",
+      "passed": true,
+      "externalRequests": 0,
       "apiRequests": 0,
       "webSockets": 0,
       "pageErrors": [],
-      "passed": true
+      "smallestWidth": 320
     },
     {
       "engine": "webkit",
       "viewport": "phone",
+      "passed": true,
+      "externalRequests": 0,
       "apiRequests": 0,
       "webSockets": 0,
       "pageErrors": [],
-      "passed": true
+      "smallestWidth": 320
     }
   ]
 }

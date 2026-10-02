@@ -1,0 +1,8 @@
+{
+  "name": "digital-twin-curated-static",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "test": "node --test tools/model.test.mjs"
+  }
+}

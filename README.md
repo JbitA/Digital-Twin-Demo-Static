@@ -1,41 +1,37 @@
-# Digital Twin Demo — Static
+# Digital Twin — Mission Snapshot
 
-**[Open the demo →](https://jbita.github.io/Digital-Twin-Demo-Static/)**
+**[Explore the prepared mission →](https://jbita.github.io/Digital-Twin-Demo-Static/)**
 
-A browser-based digital twin map showcase for desktop and phones. Explore representative ground, air and marine assets, compare illustrative journeys and energy use, and replay up to five selected twins on one mission clock. No installation is needed.
+A small, self-contained mixed-fleet showcase: an airport shuttle, a logistics van with a loading stop, an inspection drone and a harbour support vessel. All plans are curated for **3 October 2026, 09:00 UTC**. Nothing is planned through an API when you open the page.
 
-![Desktop static demo](docs/showcase/desktop.png)
+![Desktop mission snapshot](docs/showcase/desktop.png)
 
-<details>
-<summary>Phone preview</summary>
+<details><summary>Phone preview</summary>
 
-<img src="docs/showcase/phone.png" width="390" alt="Static demo running in a phone-sized browser layout" />
+<img src="docs/showcase/phone.png" width="390" alt="Prepared mixed-fleet mission on a phone-sized browser" />
 
 </details>
 
-## Try it
+## Quick look
 
-1. **Assets:** filter/search twins; **Inspect** shows details; **Add to mission** selects a twin.
-2. **Plan:** assign each destination with **Pick destinations**, or enter longitude/latitude and press **Use coordinates**. Choose a UTC start and press **Plan all assets**.
-3. **Replay:** play/pause or scrub the common clock. Estimated mission end follows the longest planned journey.
-4. **Layers:** adjust asset size or enable **Mission assets & paths focus** to temporarily hide distracting overlays. Disable focus to restore them.
-5. **Save inputs / Export JSON:** retain setup, then explicitly replan when restoring.
+1. Select a twin in **Fleet** or on the map to inspect its task, duration, energy and reserve.
+2. Press **Play mission**, pause, change playback speed or scrub the shared timeline. **Restart** returns to the prepared beginning.
+3. Enable **Selected asset & path only** to isolate a task; switch it off to restore the fleet. Adjust asset size as needed.
+4. **Fleet** frames current positions; **Route** frames the selected prepared path; **Reset** restores the map view.
+5. Open **Brief** for the scenario or **Evidence** for sources and modelling limits.
 
-On phones, use **Assets · Inspect · Plan · Layers · Replay** and close a panel to return to the map. **Fleet**, **Route**, **Reach** and **Reset** control map framing.
+The car and van use **captured road-network routes**, not random alternatives. Drone and marine paths are illustrative. Map context is a bundled schematic; no tiles, APIs, WebSockets, fonts or other external resources are loaded. Destinations are fixed so this edition presents a credible prepared example instead of an incomplete general-purpose planner.
 
-## What this demo includes
+## What is modelled
 
-Bundled catalogue and demonstration data, local journey/energy models, illustrative routes and simulated playback. **No backend API calls, live telemetry, live routing or weather grids.** OpenStreetMap image tiles still require internet; downloading the offline app does not download the basemap. Results are estimates, not operational navigation. Air/marine geometry has no airspace, land, depth or fairway safety validation.
+Route times exclude live traffic. Energy, payload, capacities and reserves are explicit demonstration assumptions. The van waits eight minutes in Pasila; the drone returns to base. Earlier arrivals stay at their destination while the remaining tasks continue. Tasks are independent and do not imply asset/cargo transfers. Flight airspace and marine clearance, depth and fairways are unvalidated. This is a demonstration, not operational navigation.
+
+[Snapshot provenance](snapshot/PROVENANCE.md) · [Prepared data](snapshot/mission.json) · [Acceptance plan](MVP_PLAN.md)
 
 ## Technology & contributions
 
-- **JavaScript:** MapLibre/WebGL interaction, local planning/replay and browser storage; native browser execution avoids installing a client runtime. Node/esbuild builds the upstream bundle. TypeScript is a possible maintainability migration, not a current implementation or automatic speed improvement.
-- **HTML/CSS:** accessible controls and responsive desktop/phone panels, without an additional UI framework's bundle and migration cost.
-- **JSON:** bundled catalogue/model contracts; it is data, not executable business logic.
-- **YAML:** GitHub Actions validates and publishes this prebuilt static site; it is deployment configuration.
-- **Python (CI only):** verifies package checksums and static configuration; it is not needed by visitors.
-- **C#, Rust and Python services:** used in the [full project](https://github.com/JbitA/Digital-Twin-Demo#languages-responsibilities-and-contribution-guide) for mission authority, telemetry and scientific ingestion/research. They do **not** run in this static demo. Keeping those services out lets an ordinary browser use the showcase without a host dependency.
+**JavaScript** provides a small dependency-free replay/model layer; **HTML/CSS and SVG** provide responsive controls and a bundled schematic map. This avoids the full application's map engine, backend services and runtime package dependencies. **JSON** retains prepared data and raw route evidence. **Python** checks release integrity in CI, and **YAML** publishes GitHub Pages; neither runs in the visitor's browser. C#, Rust and Python services belong to the [full platform](https://github.com/JbitA/Digital-Twin-Demo#languages-responsibilities-and-contribution-guide), not this viewer.
 
-Contribute application changes and focused desktop/phone regression tests to the [source project](https://github.com/JbitA/Digital-Twin-Demo); this repository publishes generated files. Preserve provider attribution and explicit data rights, never commit credentials, and validate zero API/WebSocket traffic before updating this demo. Five mission assets is the current coordinated limit, not an unlimited-fleet capacity claim.
+Contributions should preserve the prepared-data contract, source attribution and explicit assumptions. Validate geometry/timing/energy, desktop/phone interaction and zero external/API traffic before publishing. A new scenario requires fresh evidence, not enabling arbitrary routing. Four curated assets is this demonstration's scope, not a fleet-capacity benchmark.
 
-Screenshots are actual static-build browser captures; the phone view is emulation, not a physical-device performance test. OpenStreetMap and MapLibre attribution remains in the application. See [build provenance](BUILD_PROVENANCE.json).
+Screenshots are browser captures; the phone layout is emulated. Road data © OpenStreetMap contributors (ODbL), routed with Valhalla. No additional third-party data rights are asserted.

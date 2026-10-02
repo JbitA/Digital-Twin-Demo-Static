@@ -1,0 +1,5 @@
+# Contributor validation
+
+The visitor application has no runtime packages. Developer tests use Node.js 22 and Python 3; browser acceptance additionally uses Playwright 1.63.0 and its Chromium/WebKit binaries. Run `node --test tools/model.test.mjs` and `python tools/verify-static.py` for deterministic snapshot and integrity checks. With Playwright available, run `node tools/browser-acceptance.mjs`; it serves only a temporary loopback test fixture under the GitHub Pages subpath and aborts all external origins. On Windows it uses installed Chrome; configure `PLAYWRIGHT_BROWSERS_PATH` if the binaries are in a separate directory. `CI=true` prevents screenshot/evidence rewrites. `SNAPSHOT_PUBLIC_URL` checks the deployed URL instead.
+
+Normal local browser validation refreshes `docs/showcase` screenshots/evidence, so review them and regenerate `SHA256SUMS.txt` before publishing. Never include a digest of the digest file itself. Keep raw route responses and reviewed assumptions when curating a replacement scenario. Routes require evidence acquired during preparation; this viewer must never call a routing service.
