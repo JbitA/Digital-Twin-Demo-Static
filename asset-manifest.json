@@ -1,15 +1,16 @@
 {
   "version": "2.3.0",
   "files": {
-    "asset-models.json": "assets/asset-models.7af871a2700a86d6.json",
-    "demo-assets.json": "assets/demo-assets.01085d3764f557a5.json",
-    "sources.json": "assets/sources.89c3d0429b98a043.json",
+    "asset-models.json": "assets/asset-models.3a2d8675315336ae.json",
+    "demo-assets.json": "assets/demo-assets.6486b0d855c7402c.json",
+    "sources.json": "assets/sources.da03c22708cf3cef.json",
     "tms-offline-forecast.json": "assets/tms-offline-forecast.ac481bfcef631a70.json",
-    "vehicles.json": "assets/vehicles.0ffcda0d24cc1f85.json",
-    "map-worker.js": "assets/map-worker.435f230028bfaa1f.js",
-    "app.js": "assets/app.8e019620701d2dae.js",
-    "style.css": "assets/style.394820863a4f454f.css",
-    "favicon.svg": "assets/favicon.1fb831b2ba5f3eae.svg",
+    "vehicles.json": "assets/vehicles.7dde40c06ef8f634.json",
+    "map-worker.js": "assets/map-worker.a3a7bd63fd01eb53.js",
+    "app.js": "assets/app.65d8396e28849178.js",
+    "bootstrap.js": "assets/bootstrap.e5f4c0852cca9448.js",
+    "style.css": "assets/style.91ef7f410afeda0c.css",
+    "favicon.svg": "assets/favicon.350198f1eda47763.svg",
     "ahtiglobe-logo.png": "assets/ahtiglobe-logo.97d346efa522b59f.png"
   }
 }

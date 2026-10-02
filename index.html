@@ -8,11 +8,13 @@
 
 <meta charset="utf-8"/>
 
-<meta content="width=device-width, initial-scale=1" name="viewport"/>
+<meta content="width=device-width, initial-scale=1, viewport-fit=cover" name="viewport"/>
 
 <meta content="AhtiGlobe — static showcase for vehicle-aware routing, real Finnish road measurements, environmental context and scenario analysis." name="description"/>
 
 <meta content="#071015" name="theme-color"/>
+
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; worker-src 'self' blob:; connect-src 'self' https://tile.openstreetmap.org; img-src 'self' data: blob: https:; style-src 'self' 'unsafe-inline'; font-src 'self' data: https:; object-src 'none'; base-uri 'self'; form-action 'self'"/>
 
 <meta content="AhtiGlobe" property="og:title"/>
 
@@ -22,7 +24,7 @@
 
 <link href="assets/ahtiglobe-logo.97d346efa522b59f.png" rel="icon" type="image/png"/>
 
-<link href="assets/style.394820863a4f454f.css" rel="stylesheet"/>
+<link href="assets/style.91ef7f410afeda0c.css" rel="stylesheet"/>
 
 </head>
 
@@ -54,7 +56,7 @@
 
 </header>
 
-<div class="map-mode-note" id="mapModeNote"></div><div class="context-bar"><span id="compactContext">Choose an asset and plan a journey.</span><a href="#dataDrawer" id="openData">Sources <span id="compactSourceMode">Demo</span></a></div><div class="mode-notice" hidden="" id="modeNotice">Demo mode: routes and stops are synthetic; the OpenStreetMap base still requires network access. <a href="?">Use live road routing</a></div><div class="route-error" hidden="" id="routeError" role="alert"></div>
+<div class="map-mode-note" id="mapModeNote"></div><div class="context-bar"><span id="compactContext">Choose an asset and plan a journey.</span><a href="#dataDrawer" id="openData">Sources <span id="compactSourceMode">Demo</span></a></div><div class="connection-notice" id="connectionNotice" role="status" aria-live="polite" hidden></div><div class="mode-notice" hidden="" id="modeNotice">Demo mode: routes and stops are synthetic; the OpenStreetMap base still requires network access. </div><div class="route-error" hidden="" id="routeError" role="alert"></div>
 
 <main class="workspace">
 
@@ -62,20 +64,31 @@
 
 <div id="map"></div>
 
+<nav aria-label="Mobile map workspace" class="mobile-map-actions">
+<button aria-controls="assetBrowser" id="mobileAssetsToggle" type="button">Assets</button>
+<button aria-controls="twinDrawer" aria-expanded="false" id="mobileInspectToggle" type="button">Inspect</button>
+<button aria-controls="journeyDrawer" aria-expanded="false" id="mobilePlanToggle" type="button">Plan</button>
+<button aria-controls="layerDrawer" aria-expanded="false" id="mobileLayersToggle" type="button">Layers</button>
+<button aria-controls="replayPanel" aria-expanded="false" id="mobileReplayToggle" type="button">Replay</button>
+</nav>
+
+<button aria-label="Close mobile panel" class="mobile-sheet-backdrop" id="mobileSheetBackdrop" type="button"></button>
+
 <div class="map-topbar map-overlay">
 
 <div class="map-title"><span class="map-live-dot"></span><div><strong id="mapMode">Map</strong></div><span class="range-map-status" id="mapRangeStatus">MAX ROAD REACH · —</span></div>
 
 <div class="map-tools"><button id="fitAssets">Fleet</button><button id="fitRoute">Route</button><button id="fitRange">Reach</button><button id="resetView">Reset</button></div>
 
+
 </div>
 
-<details class="drawer map-legend map-overlay" id="layerDrawer"><summary><span>Layers</span><small></small></summary><div class="drawer-body layer-groups">
-<section><strong>Weather forecast</strong><label><input checked id="forecastLayer" type="checkbox"/> <span class="legend-swatch weather"></span> On map</label><label><input id="forecastValues" type="checkbox"/> Cell values</label></section>
+<details class="drawer map-legend map-overlay" id="layerDrawer"><summary><span>Layers</span><small></small></summary><div class="drawer-body layer-groups"><button class="mobile-sheet-close" id="mobileLayersClose" type="button">Close filters</button>
+<section><strong>Weather forecast</strong><label class="replay-weather-field" for="forecastField"><span>Map weather</span><select id="forecastField"><option value="temperature">Temperature</option><option value="precipitation">Precipitation</option><option value="wind">Wind</option></select></label><label><input checked id="forecastLayer" type="checkbox"/> <span class="legend-swatch weather"></span> On map</label><label><input id="forecastValues" type="checkbox"/> Cell values</label><p id="forecastStatus" role="status">Checking forecast availability</p><div id="forecastLegend" class="grid-weather-legend"></div><details class="drawer" id="forecastDrawer"><summary><span>Forecast time &amp; cell details</span><small>Now · next 24 hours</small></summary><div class="drawer-body"><div class="forecast-toolbar"><button id="forecastNow" type="button">Now</button><button id="forecastRefresh" type="button">Refresh</button></div><label for="forecastHour" id="forecastTime">Now · current model estimate</label><input id="forecastHour" type="range" min="0" max="24" step="1" value="0" aria-label="Forecast hours ahead"/><div class="forecast-scale"><span>Now</span><span>+6 h</span><span>+12 h</span><span>+18 h</span><span>+24 h</span></div><div id="forecastSamples" class="forecast-samples"></div><p id="forecastDetail" aria-live="polite"></p><small>Helsinki time · point samples, not radar coverage. Current conditions and forecasts are weather-model estimates. Road-station observations remain separate. <a href="https://open-meteo.com/en/docs" target="_blank" rel="noopener">Open-Meteo</a></small></div></details></section>
 <section><strong>Road data</strong><label><input checked id="layerWeather" type="checkbox"/> <span class="legend-swatch weather"></span> Weather sensors <span class="legend-status" id="layerWeatherStatus">0</span></label><label><input checked id="layerTraffic" type="checkbox"/> <span class="legend-swatch traffic"></span> Traffic sensors (TMS) <span class="legend-status" id="layerTrafficStatus">0</span></label><label><input checked id="layerEvents" type="checkbox"/> <span class="legend-swatch event"></span> Events &amp; restrictions <span class="legend-status" id="layerEventsStatus">0</span></label><small class="layer-help">Sensors are measured values. Events are reported works, incidents and restrictions.</small></section>
 <section><strong>Energy infrastructure</strong><label><input checked id="layerCharging" type="checkbox"/> <span class="legend-swatch charging"></span> Charging locations <span class="legend-status" id="layerChargingStatus">0</span></label><label><input checked id="layerFuel" type="checkbox"/> <span class="legend-swatch fuel"></span> Fuel locations <span class="legend-status" id="layerFuelStatus">0</span></label><small class="layer-help">Locations and status come from source feeds. Service duration is a modelled average.</small></section>
-<section><strong>Earth observation</strong><label><input id="layerSatellite" type="checkbox"/> <span class="legend-swatch satellite"></span> NASA GIBS <span class="legend-status" id="satelliteMode">layer off</span></label><select aria-label="NASA GIBS product" id="satelliteProduct"><option value="trueColor">True colour</option><option value="snow">Snow cover</option><option value="surfaceTemp">Land surface temperature</option></select><small class="layer-help" id="eoApplication">Choose an Earth-observation product, then enable Satellite.</small></section>
-<section><strong>Assets</strong><label><input checked id="layerAssets" type="checkbox"/> All assets</label><div class="layer-subgrid"><label><input checked class="asset-type-layer" value="vehicle" type="checkbox"/> Vehicles</label><label><input checked class="asset-type-layer" value="drone" type="checkbox"/> Drones</label><label><input checked class="asset-type-layer" value="aircraft" type="checkbox"/> Aircraft</label><label><input checked class="asset-type-layer" value="helicopter" type="checkbox"/> Helicopters</label><label><input checked class="asset-type-layer" value="ship" type="checkbox"/> Ships</label></div><small>Energy</small><div class="layer-subgrid"><label><input checked class="asset-energy-layer" value="electric" type="checkbox"/> Electric</label><label><input checked class="asset-energy-layer" value="fuel" type="checkbox"/> Fuel</label><label><input checked class="asset-energy-layer" value="hybrid" type="checkbox"/> Hybrid</label></div></section>
+<section><strong>Earth observation</strong><label><input disabled id="layerSatellite" type="checkbox"/> <span class="legend-swatch satellite"></span> NASA GIBS <span class="legend-status" id="satelliteMode">layer off</span></label><select aria-label="NASA GIBS product" disabled id="satelliteProduct"><option value="trueColor">True colour</option><option value="snow">Snow cover</option><option value="surfaceTemp">Land surface temperature</option></select><small class="layer-help" id="eoApplication">Satellite imagery is unavailable in this static demo.</small></section>
+<section><strong>Assets</strong><label><input id="missionAssetsOnly" type="checkbox"/> Mission assets &amp; paths focus</label><small id="missionAssetsOnlyStatus" role="status"></small><label for="assetMapSize">Asset size <output id="assetMapSizeValue">14 px</output></label><input id="assetMapSize" type="range" min="6" max="32" value="14" step="1" aria-label="Map asset size"/><label><input checked id="layerAssets" type="checkbox"/> All assets</label><div class="layer-subgrid"><label><input checked class="asset-type-layer" value="vehicle" type="checkbox"/> Vehicles</label><label><input checked class="asset-type-layer" value="drone" type="checkbox"/> Drones</label><label><input checked class="asset-type-layer" value="aircraft" type="checkbox"/> Aircraft</label><label><input checked class="asset-type-layer" value="helicopter" type="checkbox"/> Helicopters</label><label><input checked class="asset-type-layer" value="ship" type="checkbox"/> Ships</label></div><small>Energy</small><div class="layer-subgrid"><label><input checked class="asset-energy-layer" value="electric" type="checkbox"/> Electric</label><label><input checked class="asset-energy-layer" value="fuel" type="checkbox"/> Fuel</label><label><input checked class="asset-energy-layer" value="hybrid" type="checkbox"/> Hybrid</label></div></section>
 </div></details>
 
 <div class="route-chooser map-overlay hidden" id="routeChooser">
@@ -106,7 +119,7 @@
 
 <span class="status-chip" id="selectedStatus">IDLE</span>
 
-</summary><div class="field quick-asset"><label for="vehicleSelect">Asset</label><select class="dark-select" id="vehicleSelect"></select></div>
+</summary><button class="mobile-sheet-close" id="mobileInspectClose" type="button">Close inspector</button><div class="field quick-asset"><label for="vehicleSelect">Asset</label><select class="dark-select" id="vehicleSelect"></select><button class="ghost-btn inspector-plan-action" id="inspectPlanAsset" type="button">Plan this asset</button></div>
 
 <div class="inspector-empty" id="inspector">Select a fleet asset to inspect its physical envelope, energy state and mobility constraints.</div>
 
@@ -138,9 +151,13 @@
 
 </summary>
 
+<button class="mobile-sheet-close" id="mobilePlanClose" type="button">Close planner</button>
+
 <details class="drawer mission-drawer" id="missionDrawer" open>
 <summary><span>Coordinated mission</span><small id="missionCount">0 / 5</small></summary>
 <div class="drawer-body mission-body">
+<details class="drawer mission-saved"><summary><span>Saved mission inputs</span><small>This browser / JSON</small></summary><div class="mission-saved-actions"><button id="missionSave" type="button">Save inputs</button><button id="missionRestore" type="button">Restore saved</button><button id="missionExport" type="button">Export JSON</button><button id="missionImport" type="button">Import JSON</button><button id="missionForget" type="button">Remove saved copy</button></div><div class="mission-saved-actions"><button id="offlineDownload" type="button">Download offline app</button><button id="offlineRemove" type="button">Remove offline app</button></div><p id="offlinePackageStatus" role="status" aria-live="polite">Offline download excludes imagery and live data.</p><input id="missionImportFile" type="file" accept="application/json,.json" hidden/><p id="missionSavedStatus" role="status" aria-live="polite">Saves up to five asset IDs, destinations, start time and priority. Plans, energy overrides, observations and imagery are excluded.</p></details>
+
 <div id="missionEmpty" class="mission-empty"><p>Add up to five assets. Selection creates no route until every destination is assigned and <strong>Plan all</strong> is pressed.</p><button id="missionAddActive" type="button">Plan selected asset</button></div>
 <div id="missionControls" hidden>
 <div id="missionOverview" class="mission-overview" aria-label="Mission readiness"></div>
@@ -153,7 +170,7 @@
 <details id="missionEvidence" class="mission-evidence" hidden><summary><span>Plan evidence</span><small id="missionEvidenceSummary">Not planned</small></summary><div id="missionEvidenceBody" class="mission-evidence-body"></div></details>
 <div class="mission-facility"><label>Destination station<select id="missionFacility"><option value="">Custom coordinates / map point</option></select></label><div><button id="missionFacilityActive" type="button">Set active</button><button id="missionFacilityAll" type="button">Set matching assets</button></div></div>
 <div class="mission-coordinate-grid"><label>Longitude<input id="missionLon" type="number" min="-180" max="180" step="any" inputmode="decimal"/></label><label>Latitude<input id="missionLat" type="number" min="-90" max="90" step="any" inputmode="decimal"/></label></div>
-<div class="mission-time"><label>Mission start (UTC)<input id="missionDepartureTime" type="datetime-local" step="60"/></label><button id="missionDepartureNow" type="button">Now</button></div>
+<div class="mission-time"><label>Mission start (UTC)<input id="missionDepartureTime" type="datetime-local" step="60"/></label><button id="missionDepartureNow" type="button">Now</button></div><p class="mission-end-time">Estimated mission end (UTC): <output id="missionEndTime">Plan mission to estimate</output></p>
 <div class="mission-actions"><button id="missionPick" type="button" aria-pressed="false">Pick destinations</button><button id="missionAssign" type="button">Use coordinates</button><button id="missionPlanAll" class="primary-btn" type="button" disabled>Plan all assets</button></div>
 <p id="missionStatus" class="mission-status" role="status">Choose up to five assets from the asset browser.</p>
 <div id="missionIssues" class="mission-issues" hidden aria-label="Mission blockers"></div>
@@ -240,13 +257,13 @@
 
 
 
-</details></aside></main><div class="replay-bar">
+</details></aside></main><section class="replay-workspace" id="replayPanel" aria-label="Route replay"><button class="mobile-sheet-close" id="mobileReplayClose" type="button">Close replay</button><div class="replay-bar">
 
 <div class="replay-progress"><div class="eyebrow">Journey time</div><strong id="timelineReadout">0 km / idle</strong><small id="replayEta">Plan a route to start the journey clock</small></div>
 
 <input aria-label="Route replay progress" id="timeline" max="100" min="0" type="range" value="0"/>
 
-<label class="replay-weather-field" for="forecastField"><span>Map weather</span><select id="forecastField"><option value="temperature">Temperature</option><option value="precipitation">Precipitation</option><option value="wind">Wind</option></select></label>
+
 
 <div class="replay-weather-time"><span>Valid time</span><strong id="replayWeatherTime">Open Weather to load</strong></div>
 
@@ -254,7 +271,8 @@
 
 <button class="ghost-btn" id="resetBtn">Reset</button>
 
-</div><section aria-label="Journey details" class="evidence-stack"><details class="drawer" id="forecastDrawer"><summary><span>Weather outlook</span><small>Now · next 24 hours</small></summary><div class="drawer-body"><div class="forecast-toolbar"><button id="forecastNow" type="button">Now</button><button id="forecastRefresh" type="button">Refresh</button></div><p id="forecastStatus" role="status">Open to fetch weather</p><label for="forecastHour" id="forecastTime">Now · current model estimate</label><input id="forecastHour" type="range" min="0" max="24" step="1" value="0" aria-label="Forecast hours ahead"/><div class="forecast-scale"><span>Now</span><span>+6 h</span><span>+12 h</span><span>+18 h</span><span>+24 h</span></div><div id="forecastSamples" class="forecast-samples"></div><p id="forecastDetail" aria-live="polite"></p><small>Helsinki time · point samples, not radar coverage. Current conditions and forecasts are weather-model estimates. Road-station observations remain separate. <a href="https://open-meteo.com/en/docs" target="_blank" rel="noopener">Open-Meteo</a></small></div></details><details class="drawer" id="stopsDrawer"><summary><span>Journey stops</span><small id="stopSummary">Not planned</small></summary><div class="drawer-body"><p id="noStopsMessage">Plan a route to see charging and fuel stops.</p><div aria-live="polite" class="route-stop-recommendation hidden" id="routeStopRecommendation"></div></div></details><details class="drawer" id="comparisonDrawer"><summary><span>Route details</span><small>Comparison · model</small></summary><div class="drawer-body"><div class="decision-summary">
+</div></section>
+<section aria-label="Journey details" class="evidence-stack"><details class="drawer" id="stopsDrawer"><summary><span>Journey stops</span><small id="stopSummary">Not planned</small></summary><div class="drawer-body"><p id="noStopsMessage">Plan a route to see charging and fuel stops.</p><div aria-live="polite" class="route-stop-recommendation hidden" id="routeStopRecommendation"></div></div></details><details class="drawer" id="comparisonDrawer"><summary><span>Route details</span><small>Comparison · model</small></summary><div class="drawer-body"><div class="decision-summary">
 
 <div><span>SELECTED ROUTE</span><strong id="selectedRouteName">Not calculated</strong><small id="selectedRouteBasis">Real Valhalla route required for live mode</small></div>
 
@@ -395,53 +413,7 @@
 
 <script src="./runtime-config.js"></script>
 
-<script>
-
-(() => {
-
-  window.__NAT_BOOTSTRAP_STATE__ = 'LOADING_MODULE';
-
-  const status = document.getElementById('startupStatus');
-
-  let failed = false;
-
-  function fail(error) {
-
-    if (failed) return;
-
-    failed = true;
-
-    window.__NAT_BOOTSTRAP_STATE__ = 'FAILED';
-
-    status.hidden = false;
-
-    status.setAttribute('role', 'alert');
-
-    status.textContent = 'APPLICATION FAILED TO INITIALISE. ' + (location.protocol === 'file:' ? 'Serve the dist folder over HTTP; direct file opening is unsupported. ' : 'Reload the page or try deterministic demo mode. ') + (error?.message || 'Startup timed out.');
-
-    const link = document.createElement('a'); link.href = '?mode=demo'; link.textContent = ' Open demo mode'; status.append(link);
-
-    console.error('[NAT bootstrap]', error);
-
-  }
-
-  const timer = setTimeout(() => fail(new Error('Startup exceeded 50 seconds.')), 50000);
-
-  import('./assets/app.8e019620701d2dae.js').then(module => {
-
-    if (failed) throw new Error('Startup deadline exceeded; reload to retry.');
-
-    return module.bootstrap();
-
-  }).then(() => {
-
-    if (!failed) status.hidden = true;
-
-  }).catch(fail).finally(() => clearTimeout(timer));
-
-})();
-
-</script>
+<script src="./assets/bootstrap.e5f4c0852cca9448.js" type="module"></script>
 
 <div aria-labelledby="assetBrowserTitle" aria-modal="true" class="modal hidden" id="assetBrowser" role="dialog" tabindex="-1">
 
@@ -451,9 +423,9 @@
 
 <div class="modal-head"><div><div class="eyebrow">Asset twins</div><h2 id="assetBrowserTitle">Choose assets</h2><p>Inspect one asset at a time and add up to five to the coordinated mission.</p></div><button aria-label="Close" class="modal-close" data-close-asset-browser="">×</button></div><div class="fleet-tools">
 
-<input autocomplete="off" class="search" id="search" placeholder="Search fleet or profile"/>
+<input autocomplete="off" aria-label="Search assets" type="search" enterkeyhint="search" class="search" id="search" placeholder="Search names, catalogue, energy or specifications"/>
 
-<div aria-label="Asset domain filters" class="filters" role="tablist">
+<div aria-label="Asset domain filters" class="filters" role="group">
 
 <button class="filter active" data-filter="all">ALL</button>
 
@@ -465,14 +437,17 @@
 
 <div class="registry-filter-row">
 
-<select aria-label="Vehicle type" class="registry-select" id="typeFilter"><option value="all">All vehicle types</option><option value="passenger_car">Cars</option><option value="van">Vans</option><option value="truck">Trucks</option><option value="military">Military assets</option><option value="drone">Drones</option><option value="helicopter">Helicopters</option><option value="aircraft">Aircraft</option><option value="ship">Ships</option></select>
+<select aria-label="Vehicle type" class="registry-select" id="typeFilter"><option value="all">All vehicle types</option><option value="passenger_car">Cars</option><option value="van">Vans</option><option value="truck">Trucks</option><option value="military">Military assets</option><option value="6x6">6×6 vehicles</option><option value="8x8">8×8 vehicles</option><option value="tracked">Tracked vehicles</option><option value="drone">Drones</option><option value="helicopter">Helicopters</option><option value="aircraft">Aircraft</option><option value="ship">Ships</option></select>
 
-<select aria-label="Energy source" class="registry-select" id="energyFilter"><option value="all">All energy sources</option><option value="petrol">Petrol</option><option value="diesel">Diesel</option><option value="electricity">Electricity</option><option value="hybrid">Hybrid</option><option value="phev">Plug-in hybrid</option><option value="alternative">Alternative fuel</option></select>
-
+<select aria-label="Energy source" class="registry-select" id="energyFilter"><option value="all">All energy sources</option><option value="petrol">Petrol</option><option value="diesel">Diesel</option><option value="electricity">Electricity</option><option value="hybrid">Hybrid</option><option value="phev">Plug-in hybrid</option><option value="alternative">Alternative powertrain</option><option value="aviation_fuel">Aviation fuel</option><option value="hvo">HVO</option><option value="lng">LNG</option><option value="bio_lng">Bio-LNG</option><option value="unknown">Unspecified energy</option></select>
 </div>
+<details class="catalogue-extra-filters"><summary>Catalogue &amp; domain filters</summary><div class="registry-filter-row"><select aria-label="Operating domain" class="registry-select" id="domainFilter"><option value="all">All operating domains</option><option value="vehicle">Ground</option><option value="air">Air</option><option value="marine">Marine</option></select>
+<select aria-label="Catalogue manufacturer" class="registry-select" id="manufacturerFilter"><option value="all">All manufacturers</option></select>
+<select aria-label="Catalogue data status" class="registry-select" id="dataStatusFilter"><option value="all">All catalogue data statuses</option></select></div></details>
 
 <div class="browser-toolbar-note"><span id="browserCount"></span><span>Demo telemetry · modelled capabilities</span></div></div>
 
+<nav class="asset-pagination" id="assetPagination" aria-label="Asset result pages" hidden><button id="assetPagePrevious" type="button">Previous</button><span id="assetPageStatus" role="status" aria-live="polite"></span><button id="assetPageNext" type="button">Next</button></nav>
 <div class="asset-browser-grid" id="assetBrowserGrid"></div>
 
 </section>

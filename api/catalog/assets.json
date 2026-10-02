@@ -244,11 +244,11 @@
       "fuel_capacity_l": 460,
       "model_consumption_l_100km": 46.0,
       "operating_mass_kg": 26500,
-      "state_basis": "representative showcase state Â· Pori region · modelled LNG volume baseline"
+      "state_basis": "representative showcase state · Pori region · modelled LNG volume baseline"
     },
     {
       "id": "demo-patria6",
-      "name": "Patria 6Ã—6 A-01",
+      "name": "Patria 6×6 A-01",
       "profile_id": "patria_6x6",
       "domain": "vehicle",
       "category": "military",
@@ -273,7 +273,7 @@
       "profile_id": "patria_amv_xp",
       "domain": "vehicle",
       "category": "military",
-      "role": "protected 8Ã—8 mobility",
+      "role": "protected 8×8 mobility",
       "spatial": "static",
       "lat": 61.485,
       "lon": 21.797,
@@ -308,7 +308,7 @@
       "operating_mass_kg": 13500,
       "fuel_capacity_l": 500,
       "model_consumption_l_100km": 100.0,
-      "state_basis": "representative showcase state Â· Tampere region · modelled diesel baseline"
+      "state_basis": "representative showcase state · Tampere region · modelled diesel baseline"
     },
     {
       "id": "demo-civilian_drone",

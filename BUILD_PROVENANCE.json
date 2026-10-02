@@ -1,0 +1,10 @@
+{
+  "upstream": "https://github.com/JbitA/Digital-Twin-Demo",
+  "sourceCommit": "069b07f",
+  "version": "2.3.0",
+  "app": "assets/app.65d8396e28849178.js",
+  "deployment": "https://jbita.github.io/Digital-Twin-Demo-Static/",
+  "mode": "static-only; provider APIs and server mission authority disabled; local demo planning; OSM raster tiles allowed",
+  "isolatedSource": "Digital-Twin-Demo-static-source",
+  "capturedOn": "2026-10-02"
+}

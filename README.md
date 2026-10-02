@@ -1,72 +1,41 @@
-# AhtiGlobe emergency static deployment
+# Digital Twin Demo — Static
 
-## Purpose
+**[Open the demo →](https://jbita.github.io/Digital-Twin-Demo-Static/)**
 
-This deployment is the independent, known-good showcase used when the full PC-backed AhtiGlobe deployment is unavailable. It contains only the browser application and bundled demonstration data. It does not require Docker, the PC host, Cloudflare Tunnel, the C# mission service, the Rust telemetry path, or the Python weather service.
+A browser-based digital twin map showcase for desktop and phones. Explore representative ground, air and marine assets, compare illustrative journeys and energy use, and replay up to five selected twins on one mission clock. No installation is needed.
 
-Static means that AhtiGlobe has no dependency on an operator-owned backend. It does not mean fully offline: OpenStreetMap tiles and other public browser-accessible resources can still require internet access. The interface must label bundled, modelled and unavailable data accurately.
+![Desktop static demo](docs/showcase/desktop.png)
 
-Keep this deployment at a separate address from the full version, for example `demo.ahtiglobe.com` or a dedicated GitHub Pages repository. Do not overwrite it automatically when updating the full deployment.
+<details>
+<summary>Phone preview</summary>
 
-## Release artifact
+<img src="docs/showcase/phone.png" width="390" alt="Static demo running in a phone-sized browser layout" />
 
-Deploy the contents of:
+</details>
 
-```text
-nordic-asset-twin-v2.3.0-site.zip
-```
+## Try it
 
-The files inside the ZIP are already the publishing root. Upload `index.html`, `runtime-config.js`, `assets/`, `api/`, `.nojekyll`, and the other extracted files directly to the selected static host. Do not upload the containing ZIP directory as an extra path level.
+1. **Assets:** filter/search twins; **Inspect** shows details; **Add to mission** selects a twin.
+2. **Plan:** assign each destination with **Pick destinations**, or enter longitude/latitude and press **Use coordinates**. Choose a UTC start and press **Plan all assets**.
+3. **Replay:** play/pause or scrub the common clock. Estimated mission end follows the longest planned journey.
+4. **Layers:** adjust asset size or enable **Mission assets & paths focus** to temporarily hide distracting overlays. Disable focus to restore them.
+5. **Save inputs / Export JSON:** retain setup, then explicitly replan when restoring.
 
-## Required static configuration
+On phones, use **Assets · Inspect · Plan · Layers · Replay** and close a panel to return to the map. **Fleet**, **Route**, **Reach** and **Reset** control map framing.
 
-The emergency package must have an empty API base in its root `runtime-config.js`:
+## What this demo includes
 
-```js
-window.__NAT_RUNTIME_CONFIG__ = Object.freeze({
-  apiBaseUrl: ""
-});
-```
+Bundled catalogue and demonstration data, local journey/energy models, illustrative routes and simulated playback. **No backend API calls, live telemetry, live routing or weather grids.** OpenStreetMap image tiles still require internet; downloading the offline app does not download the basemap. Results are estimates, not operational navigation. Air/marine geometry has no airspace, land, depth or fairway safety validation.
 
-An empty value selects the labelled static fallback. Do not use `deploy/github-pages/runtime-config.js.example` for this emergency deployment because that example points to the full backend.
+## Technology & contributions
 
-## Build a fresh emergency package
+- **JavaScript:** MapLibre/WebGL interaction, local planning/replay and browser storage; native browser execution avoids installing a client runtime. Node/esbuild builds the upstream bundle. TypeScript is a possible maintainability migration, not a current implementation or automatic speed improvement.
+- **HTML/CSS:** accessible controls and responsive desktop/phone panels, without an additional UI framework's bundle and migration cost.
+- **JSON:** bundled catalogue/model contracts; it is data, not executable business logic.
+- **YAML:** GitHub Actions validates and publishes this prebuilt static site; it is deployment configuration.
+- **Python (CI only):** verifies package checksums and static configuration; it is not needed by visitors.
+- **C#, Rust and Python services:** used in the [full project](https://github.com/JbitA/Digital-Twin-Demo#languages-responsibilities-and-contribution-guide) for mission authority, telemetry and scientific ingestion/research. They do **not** run in this static demo. Keeping those services out lets an ordinary browser use the showcase without a host dependency.
 
-Run these commands from the source package root:
+Contribute application changes and focused desktop/phone regression tests to the [source project](https://github.com/JbitA/Digital-Twin-Demo); this repository publishes generated files. Preserve provider attribution and explicit data rights, never commit credentials, and validate zero API/WebSocket traffic before updating this demo. Five mission assets is the current coordinated limit, not an unlimited-fleet capacity claim.
 
-```powershell
-Remove-Item Env:NAT_API_BASE_URL -ErrorAction SilentlyContinue
-npm ci
-npm test
-npm run build
-python scripts/release.py
-python scripts/release.py --check
-```
-
-Before publishing, open `dist/runtime-config.js` and verify that `apiBaseUrl` is empty. The generated site ZIP is written beside the source directory.
-
-## GitHub Pages deployment
-
-Use a repository or Pages project reserved for the emergency version. Publish the extracted site ZIP contents from the repository root or the configured Pages artifact root. If a custom fallback domain is used, keep its `CNAME` file in this package only.
-
-The main repository workflow currently builds a frontend that targets the full API. It is therefore a full-deployment workflow, not the authority for this emergency package unless its build environment is deliberately changed and reviewed.
-
-## Acceptance gate
-
-Validate the emergency site while the PC backend and tunnel are stopped:
-
-1. Load the site in a clean browser session.
-2. Confirm the header reports fallback or demo state rather than a live backend.
-3. Open the asset browser and inspect representative land, air and marine assets.
-4. Plan and replay at least one bundled demonstration journey.
-5. Confirm missing live providers do not block navigation or leave an endless loading state.
-6. Test desktop and iPhone 12 portrait dimensions.
-7. Confirm the console contains no credential, mixed-content or uncaught application errors.
-8. Record the deployed URL, release version and site ZIP SHA-256.
-
-Do not describe C# mission authority, native NOAA grid processing, live telemetry, live charging/fuel infrastructure, or tunneled provider adapters as available in this deployment.
-
-## Rollback and preservation
-
-Keep the last accepted site ZIP and its SHA-256 outside the full deployment directory. A rollback consists of republishing that exact ZIP. Do not rebuild during an emergency unless the preserved artifact is unavailable, because rebuilding changes the evidence being recovered.
-
+Screenshots are actual static-build browser captures; the phone view is emulation, not a physical-device performance test. OpenStreetMap and MapLibre attribution remains in the application. See [build provenance](BUILD_PROVENANCE.json).
